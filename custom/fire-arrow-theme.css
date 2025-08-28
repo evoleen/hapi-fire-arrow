@@ -1,0 +1,66 @@
+/* Fire Arrow Server Custom Theme */
+
+/* Hide server selector elements */
+select[name="server"],
+select#server,
+.server-selector,
+#server-selector,
+.form-group select,
+form .form-group:first-child,
+.navbar select,
+.well select {
+    display: none !important;
+}
+
+/* Hide labels and form groups related to server selection */
+label[for="server"],
+.form-group:first-child,
+.control-label {
+    display: none !important;
+}
+
+/* Ensure the main content area is properly spaced without server selector */
+.container-fluid > .row:first-child {
+    margin-top: 0;
+}
+
+/* Fire Arrow Server color scheme */
+:root {
+    --fire-red: #e74c3c;
+    --fire-red-dark: #c0392b;
+    --fire-orange: #f39c12;
+    --fire-dark: #2c3e50;
+}
+
+/* Enhance the Fire Arrow branding */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Style any remaining server-related text */
+.navbar-text,
+.help-block {
+    color: var(--fire-dark) !important;
+}
+
+/* Ensure forms work properly without server selector */
+.form-horizontal .form-group:first-child {
+    margin-top: 0;
+}
+
+/* Hide any breadcrumb or navigation that shows server selection */
+.breadcrumb li:contains("Server"),
+.nav-tabs li:contains("Server") {
+    display: none !important;
+}
+
+/* Style primary buttons with Fire Arrow colors */
+.btn-primary {
+    background-color: var(--fire-red);
+    border-color: var(--fire-red-dark);
+}
+
+.btn-primary:hover {
+    background-color: var(--fire-red-dark);
+    border-color: var(--fire-red-dark);
+}
