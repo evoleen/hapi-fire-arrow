@@ -84,59 +84,6 @@
         }
     </style>
     
-    <!-- Load Fire Arrow custom theme CSS -->
-    <script>
-        // Dynamically load Fire Arrow theme CSS if available
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'content/custom/fire-arrow-theme.css';
-        link.onerror = function() {
-            console.log('Fire Arrow theme CSS not found, using default styling');
-        };
-        document.head.appendChild(link);
-        
-        // Hide server selector after page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                // Hide server selector elements
-                const selectors = [
-                    'select[name="server"]',
-                    'select#server', 
-                    '.form-group select',
-                    'form .form-group:first-child',
-                    '.navbar select',
-                    '.well select',
-                    'label[for="server"]',
-                    '.control-label'
-                ];
-                
-                selectors.forEach(function(selector) {
-                    const elements = document.querySelectorAll(selector);
-                    elements.forEach(function(element) {
-                        element.style.display = 'none';
-                        if (element.parentElement) {
-                            // Check if parent is a form-group and hide it too
-                            if (element.parentElement.classList.contains('form-group')) {
-                                element.parentElement.style.display = 'none';
-                            }
-                        }
-                    });
-                });
-                
-                // Ensure the first server option is always selected
-                const serverSelects = document.querySelectorAll('select');
-                serverSelects.forEach(function(select) {
-                    if (select.options && select.options.length > 0) {
-                        select.selectedIndex = 0;
-                        // Trigger change event to ensure the app knows about the selection
-                        const event = new Event('change', { bubbles: true });
-                        select.dispatchEvent(event);
-                    }
-                });
-            }, 500); // Wait 500ms for the page to fully load
-        });
-    </script>
-    
     <div class="row" style="margin-bottom: 2rem;">
         <div class="col-md-8">
             <div class="fire-arrow-logo">
