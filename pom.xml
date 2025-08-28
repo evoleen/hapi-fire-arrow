@@ -28,7 +28,8 @@
     <packaging>war</packaging>
 
 
-    <name>HAPI FHIR JPA Server - Starter Project</name>
+    <name>Fire Arrow Server - Enterprise FHIR Platform</name>
+    <description>Fire Arrow Server is a unified FHIR server that integrates dynamic Role-Based Access Control (RBAC) capabilities directly into HAPI FHIR, providing enterprise-grade healthcare data infrastructure with OAuth 2.0 authentication and compartment-based authorization.</description>
 
     <repositories>
         <repository>
