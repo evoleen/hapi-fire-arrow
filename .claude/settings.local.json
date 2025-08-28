@@ -5,6 +5,7 @@
       "Bash(.claude/scripts/test-and-log.sh:*)",
       "Bash(bash .claude/scripts/pm/*)",
       "Bash(.claude/scripts/pm/*)",
+
       "Bash(cat *)",
       "Bash(cat:*)",
       "Bash(composer *)",
@@ -22,6 +23,17 @@
       "Bash(pnpm *)",
       "Bash(pytest *)",
       "Bash(python *)",
+      "Bash(mvn *)",
+      "Bash(gradle *)",
+      "Bash(./gradlew *)",
+      "Bash(dotnet *)",
+      "Bash(cargo *)",
+      "Bash(go *)",
+      "Bash(swift *)",
+      "Bash(flutter *)",
+      "Bash(bundle *)",
+      "Bash(ctest *)",
+      "Bash(make *)",
       "Bash(rm *)",
       "Bash(ruff check *)",
       "Bash(ruff check:*)",
@@ -32,18 +44,7 @@
       "Bash(tree *)",
       "List(**)",
       "WebFetch(domain:github.com)",
-      "WebSearch",
-      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
-      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
-      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
-      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
-      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
-      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
-      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
-      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
-      "Read(/Users/till/Development/epic-hapi-fhir-starter/src/main/webapp/**)",
-      "Read(/Users/till/Development/epic-hapi-fhir-starter/.claude/epics/hapi-fhir-starter/updates/8/**)",
-      "Read(/Users/till/Development/epic-hapi-fhir-starter/.claude/epics/hapi-fhir-starter/updates/8/**)"
+      "WebSearch"
     ]
   }
 }
