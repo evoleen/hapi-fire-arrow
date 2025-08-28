@@ -5,7 +5,6 @@
       "Bash(.claude/scripts/test-and-log.sh:*)",
       "Bash(bash .claude/scripts/pm/*)",
       "Bash(.claude/scripts/pm/*)",
-
       "Bash(cat *)",
       "Bash(cat:*)",
       "Bash(composer *)",
@@ -33,7 +32,18 @@
       "Bash(tree *)",
       "List(**)",
       "WebFetch(domain:github.com)",
-      "WebSearch"
+      "WebSearch",
+      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
+      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
+      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
+      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
+      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
+      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
+      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
+      "Read(/Users/till/Development/epic-hapi-fhir-starter/**)",
+      "Read(/Users/till/Development/epic-hapi-fhir-starter/src/main/webapp/**)",
+      "Read(/Users/till/Development/epic-hapi-fhir-starter/.claude/epics/hapi-fhir-starter/updates/8/**)",
+      "Read(/Users/till/Development/epic-hapi-fhir-starter/.claude/epics/hapi-fhir-starter/updates/8/**)"
     ]
   }
 }
