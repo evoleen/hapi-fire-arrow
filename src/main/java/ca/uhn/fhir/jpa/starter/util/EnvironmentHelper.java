@@ -201,6 +201,15 @@ public class EnvironmentHelper {
 		return result;
 	}
 
+	/**
+	 * Check if Fire Arrow Server UI should be enabled.
+	 * Returns true if fire_arrow_server configuration is present in application.yaml
+	 */
+	public static Boolean isFireArrowServerUiEnabled(ConfigurableEnvironment environment) {
+		Map<String, Object> fireArrowProps = getPropertiesStartingWith(environment, "hapi.fhir.fire_arrow_server");
+		return !fireArrowProps.isEmpty();
+	}
+
 	private static void addAll(Map<String, Object> aBase, Map<String, Object> aToBeAdded) {
 		for (Map.Entry<String, Object> entry : aToBeAdded.entrySet()) {
 			if (aBase.containsKey(entry.getKey())) {

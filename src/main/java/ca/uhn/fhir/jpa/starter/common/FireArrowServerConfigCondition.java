@@ -6,12 +6,11 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
-public class FhirTesterConfigCondition implements Condition {
+public class FireArrowServerConfigCondition implements Condition {
 	@Override
 	public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata metadata) {
-		// Fire Arrow Server: Disable tester UI while keeping functionality available
-		// The tester functionality is hidden from the UI but the server configuration
-		// is now handled through fire_arrow_server settings in application.yaml
-		return false;
+		// Fire Arrow Server: Enable UI when fire_arrow_server configuration is present
+		ConfigurableEnvironment configurableEnvironment = (ConfigurableEnvironment) conditionContext.getEnvironment();
+		return EnvironmentHelper.isFireArrowServerUiEnabled(configurableEnvironment);
 	}
 }
