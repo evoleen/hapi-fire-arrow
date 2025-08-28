@@ -2,8 +2,32 @@
 <configuration scan="true" scanPeriod="30 seconds">
 	<include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 	<include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+	
+	<!-- Fire Arrow Server Enhanced Logging Configuration -->
 	<root level="INFO">
 		<appender-ref ref="CONSOLE" />
 	</root>
-	<logger name = "org.opencds.cqf.cql.engine.debug" level="DEBUG"/>
+	
+	<!-- FHIR Server specific logging -->
+	<logger name="ca.uhn.fhir.jpa.starter" level="INFO"/>
+	<logger name="ca.uhn.fhir.rest.server" level="INFO"/>
+	<logger name="ca.uhn.fhir.jpa" level="WARN"/>
+	
+	<!-- Health and monitoring -->
+	<logger name="org.springframework.boot.actuate" level="INFO"/>
+	
+	<!-- Database and performance monitoring -->
+	<logger name="org.hibernate.SQL" level="WARN"/>
+	<logger name="org.hibernate.type.descriptor.sql" level="WARN"/>
+	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="INFO"/>
+	
+	<!-- OpenCDS CQL Engine Debug -->
+	<logger name="org.opencds.cqf.cql.engine.debug" level="DEBUG"/>
+	
+	<!-- Spring Security and Web -->
+	<logger name="org.springframework.security" level="WARN"/>
+	<logger name="org.springframework.web" level="INFO"/>
+	
+	<!-- Fire Arrow Server Application Logging -->
+	<logger name="ca.uhn.fhir.jpa.starter.Application" level="INFO"/>
 </configuration>

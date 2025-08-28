@@ -9,9 +9,9 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 public class FhirTesterConfigCondition implements Condition {
 	@Override
 	public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata metadata) {
-
-		var properties = EnvironmentHelper.getPropertiesStartingWith(
-				(ConfigurableEnvironment) conditionContext.getEnvironment(), "hapi.fhir.tester");
-		return !properties.isEmpty();
+		// Fire Arrow Server: Disable tester UI while keeping functionality available
+		// The tester functionality is hidden from the UI but the server configuration
+		// is now handled through fire_arrow_server settings in application.yaml
+		return false;
 	}
 }
