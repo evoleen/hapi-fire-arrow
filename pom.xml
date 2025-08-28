@@ -24,12 +24,9 @@
     </parent>
 
     <artifactId>hapi-fhir-jpaserver-starter</artifactId>
-    <version>${project.parent.version}-${hapi.fhir.jpa.server.starter.revision}</version>
+    <version>8.4.0-2</version>
     <packaging>war</packaging>
 
-    <prerequisites>
-        <maven>3.8.3</maven>
-    </prerequisites>
 
     <name>HAPI FHIR JPA Server - Starter Project</name>
 
@@ -442,6 +439,31 @@
                         </goals>
                         <configuration>
                             <mainClass>ca.uhn.fhir.jpa.starter.Application</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Enforce Maven version requirement -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>[3.8.3,)</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>[17,)</version>
+                                </requireJavaVersion>
+                            </rules>
                         </configuration>
                     </execution>
                 </executions>
