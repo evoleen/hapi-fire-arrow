@@ -1,7 +1,7 @@
 ---
 created: 2025-08-28T15:58:42Z
-last_updated: 2025-08-28T15:58:42Z
-version: 1.0
+last_updated: 2025-08-28T16:54:05Z
+version: 1.1
 author: Claude Code PM System
 ---
 
@@ -18,10 +18,10 @@ author: Claude Code PM System
 - **Clinical Data Repositories**: Centralized patient data management
 
 #### Software Developers
-- **Integration Engineers**: Building healthcare system integrations
-- **FHIR Developers**: Creating FHIR-compliant applications
-- **Healthcare Software Architects**: Designing interoperability solutions
-- **QI/Research Teams**: Quality improvement and clinical research data access
+- **Healthcare Application Developers**: Need easy sync with upstream HAPI FHIR updates without conflicts
+- **Access Control Engineers**: Building complex access control rules for healthcare scenarios
+- **Integration Engineers**: Building healthcare system integrations with sophisticated RBAC
+- **FHIR Developers**: Creating FHIR-compliant applications with compartment-based security
 
 ### Secondary Users
 
@@ -32,17 +32,24 @@ author: Claude Code PM System
 - **Public Health Agencies**: Population health data collection
 
 #### Technical Teams
-- **DevOps Engineers**: Deploying and maintaining FHIR servers
-- **Security Teams**: Healthcare data protection and compliance
+- **DevOps Engineers**: Need clean server startup and Kubernetes-native deployment with CNPG/FluxCD
+- **Security Teams**: Healthcare data protection and OAuth 2.0 compliance
 - **Data Scientists**: Clinical data analysis and research
+
+#### Healthcare End Users
+- **Patients**: OAuth-authenticated access to personal healthcare data with privacy protection
+- **Healthcare Providers**: Role-appropriate access to patient data based on care relationships
+- **Care Teams**: Coordinated access to shared patient information across provider roles
 
 ## Core User Needs
 
-### Healthcare Data Interoperability
-- **Standardized Data Exchange**: FHIR R4/R5 compliant resource management
-- **Multi-Version Support**: Legacy system integration (DSTU2, DSTU3)
-- **Real-time Synchronization**: Live data updates via subscriptions
-- **Bulk Data Access**: Large-scale data export and import
+### Healthcare Data Interoperability with Integrated Access Control
+- **Unified RBAC**: Dynamic Role-Based Access Control integrated directly into FHIR server
+- **OAuth 2.0 Authentication**: Token-based authentication with user identity resolution
+- **Compartment-Based Authorization**: FHIR R4 compartment definitions for access control
+- **Performance Optimization**: <100ms cached validation, <500ms uncached validation
+- **Multi-tenant Support**: 1000+ concurrent users per tenant deployment
+- **Standardized Data Exchange**: FHIR R4/R5 compliant resource management with access controls
 
 ### Clinical Decision Support
 - **CQL Integration**: Clinical Quality Language for decision logic

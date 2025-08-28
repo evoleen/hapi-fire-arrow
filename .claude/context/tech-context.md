@@ -1,7 +1,7 @@
 ---
 created: 2025-08-28T15:58:42Z
-last_updated: 2025-08-28T15:58:42Z
-version: 1.0
+last_updated: 2025-08-28T16:54:05Z
+version: 1.1
 author: Claude Code PM System
 ---
 
@@ -10,11 +10,12 @@ author: Claude Code PM System
 ## Core Technology Stack
 
 ### Platform & Runtime
-- **Java Version**: 17 (LTS)
+- **Java Version**: 17 (LTS) - Required for Fire Arrow Server
 - **Build Tool**: Maven 3.8.3+
 - **Application Framework**: Spring Boot 3.x
 - **Web Container**: Embedded Tomcat (default) / Jetty (optional)
 - **Packaging**: WAR file (`ROOT.war`)
+- **Server Identity**: Fire Arrow Server (branded HAPI FHIR implementation)
 
 ### Primary Dependencies
 
@@ -34,12 +35,12 @@ author: Claude Code PM System
 - **Module**: `cqf-fhir-cr-hapi` - Clinical Quality Language (CQL) support
 
 #### Database Support
-- **Primary**: H2 Database (embedded, in-memory for development)
-- **Production Options**:
-  - PostgreSQL with `org.postgresql:postgresql`
-  - Microsoft SQL Server with `com.microsoft.sqlserver:mssql-jdbc`
+- **Development**: H2 Database (embedded, in-memory for testing)
+- **Production Primary**: PostgreSQL with CNPG (Cloud Native PostgreSQL) orchestration
+- **Alternative Production**: Microsoft SQL Server with `com.microsoft.sqlserver:mssql-jdbc`
 - **Connection Pooling**: HikariCP 5.0.1
 - **ORM**: Hibernate JPA with custom HAPI FHIR dialects
+- **Multi-tenant Support**: Tenant isolation capabilities for SaaS deployments
 
 ### Spring Boot Ecosystem
 
@@ -53,6 +54,8 @@ author: Claude Code PM System
 - **Micrometer Core**: 1.13.3
 - **Prometheus Registry**: 1.13.3 (with SimplClient)
 - **Actuator Endpoints**: Health, metrics, info, Prometheus
+- **OpenTelemetry**: Azure OpenTelemetry distribution for Application Insights integration
+- **Structured Logging**: JSON-formatted logs for authentication and validation events
 
 ### Web & UI Technologies
 
@@ -99,6 +102,29 @@ author: Claude Code PM System
 - **cloudsql-postgres** - Google Cloud SQL integration
 - **ossrh-repo** - Maven Central publishing
 
+### Fire Arrow Server Authentication & Access Control
+
+#### OAuth 2.0 Integration
+- **Authentication Framework**: OAuth 2.0 token-based authentication
+- **Token Processing**: JWT token parsing and validation
+- **Identity Mapping**: Email-based user to FHIR resource identity resolution
+- **Resource Types**: Support for Patient, Practitioner, Device, RelatedPerson identities
+- **Caching**: Multi-layer caching for identity resolution and validation results
+
+#### Dynamic RBAC Framework
+- **Extensible Validator Architecture**: Pluggable request validation system
+- **Patient Compartment Validator**: FHIR R4 compartment-based access control
+- **Request Processing Pipeline**: Authentication → Identity Resolution → Validation
+- **Performance Requirements**: <100ms for cached results, <500ms for uncached
+- **Multi-tenant Support**: Tenant isolation with 1000+ concurrent users per tenant
+
+#### Access Control Components
+- **Compartment Definitions**: FHIR R4 compartment specification implementation
+- **Role-Based Filtering**: Resource filtering based on user roles and relationships
+- **Request Validation**: CRUD and search operation validation
+- **Cache Management**: Configurable cache invalidation and warming
+- **Error Handling**: Structured error responses with appropriate HTTP status codes
+
 ### Container & Deployment
 
 #### Docker
@@ -109,9 +135,12 @@ author: Claude Code PM System
 
 #### Kubernetes
 - **Helm Charts** - Complete Kubernetes deployment
+- **CNPG Integration** - Cloud Native PostgreSQL orchestration
+- **FluxCD Ready** - GitOps deployment compatibility
 - **Service Monitor** - Prometheus metrics collection
 - **Ingress Support** - Traffic routing configuration
 - **Pod Disruption Budget** - High availability
+- **Multi-tenant Architecture**: Namespace-based tenant isolation
 
 ### Security & Quality
 

@@ -1,7 +1,7 @@
 ---
 created: 2025-08-28T15:58:42Z
-last_updated: 2025-08-28T15:58:42Z
-version: 1.0
+last_updated: 2025-08-28T16:54:05Z
+version: 1.1
 author: Claude Code PM System
 ---
 
@@ -9,7 +9,7 @@ author: Claude Code PM System
 
 ## Long-term Vision Statement
 
-**"To become the leading open-source healthcare data interoperability platform that empowers healthcare organizations worldwide to seamlessly exchange, analyze, and act upon clinical data while maintaining the highest standards of security, compliance, and performance."**
+**"To become the leading open-source healthcare data interoperability platform with integrated dynamic RBAC capabilities, empowering healthcare organizations to seamlessly exchange, analyze, and act upon clinical data while maintaining the highest standards of security, access control, compliance, and performance through unified server architecture."**
 
 ## Strategic Direction
 
@@ -39,11 +39,17 @@ author: Claude Code PM System
 
 ### Immediate Priorities (2025-2026)
 
-#### Platform Maturation
-1. **Enterprise Security**: Production-grade authentication, authorization, and audit systems
-2. **Performance Optimization**: Achieve 10x performance improvement for high-volume operations
-3. **Cloud Optimization**: Native cloud platform integrations (AWS, Azure, GCP)
-4. **Developer Experience**: Comprehensive tooling, documentation, and developer ecosystem
+#### Fire Arrow Server Foundation (Phase 1 - Current)
+1. **Dynamic RBAC Integration**: Unified authentication and authorization within HAPI FHIR server
+2. **Performance Optimization**: Eliminate facade service overhead, achieve <100ms cached validation
+3. **Server Identity**: Complete Fire Arrow Server branding and metadata identity
+4. **Multi-tenant Architecture**: Support 1000+ concurrent users per tenant with proper isolation
+
+#### Platform Maturation  
+1. **Enterprise Security**: OAuth 2.0 integration with extensible validator framework
+2. **Cloud-Native Deployment**: CNPG PostgreSQL and FluxCD GitOps integration
+3. **Observability**: Azure Application Insights integration with OpenTelemetry
+4. **Developer Experience**: Comprehensive testing and validation framework
 
 #### Market Expansion
 1. **Global Compliance**: Support for international healthcare regulations (GDPR, Canadian, Australian standards)
@@ -53,11 +59,17 @@ author: Claude Code PM System
 
 ### Medium-term Priorities (2026-2028)
 
-#### Advanced Capabilities
+#### Advanced RBAC Capabilities (Phase 2)
+1. **Multi-Compartment Access**: Practitioner, Device, and RelatedPerson compartment validators
+2. **Advanced Validator Framework**: Complex multi-resource validators and custom business logic
+3. **Administrative Interfaces**: Multi-tenant UI for validator configuration and management
+4. **Compliance Implementation**: ISO 27001, SOC-2, and GDPR specific implementations
+
+#### Advanced Clinical Capabilities
 1. **Clinical AI Integration**: Native support for clinical ML models and AI-powered decision support
 2. **Real-time Analytics**: Stream processing and real-time clinical dashboards
-3. **Blockchain Integration**: Secure, distributed healthcare data verification and sharing
-4. **IoT Device Integration**: Support for wearables, sensors, and medical device data
+3. **Advanced Performance**: Database optimization, connection pooling tuning, horizontal scaling
+4. **Enhanced Audit Logging**: Detailed compliance audit trails and forensic capabilities
 
 #### Platform Evolution
 1. **Microservices Architecture**: Decompose monolith into specialized, scalable services

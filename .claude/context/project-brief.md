@@ -1,7 +1,7 @@
 ---
 created: 2025-08-28T15:58:42Z
-last_updated: 2025-08-28T15:58:42Z
-version: 1.0
+last_updated: 2025-08-28T16:54:05Z
+version: 1.1
 author: Claude Code PM System
 ---
 
@@ -9,14 +9,15 @@ author: Claude Code PM System
 
 ## Project Identity
 
-**Project Name**: HAPI Fire Arrow  
+**Project Name**: Fire Arrow Server  
 **Repository**: https://github.com/evoleen/hapi-fire-arrow  
 **Base Project**: HAPI FHIR JPA Server Starter  
 **Current Version**: 8.4.0-2  
+**Server Identity**: Fire Arrow Server (branded HAPI FHIR with integrated dynamic RBAC)  
 
 ## What It Is
 
-HAPI Fire Arrow is a production-ready FHIR (Fast Healthcare Interoperability Resources) server implementation built on the HAPI FHIR framework. It provides a complete, standards-compliant healthcare data interoperability platform that enables healthcare organizations to store, manage, and exchange clinical data using FHIR standards.
+Fire Arrow Server is a unified FHIR server that integrates dynamic Role-Based Access Control (RBAC) capabilities directly into the HAPI FHIR JPA starter project. This eliminates the need for separate facade services, improving performance and simplifying deployment while providing sophisticated healthcare data access controls through OAuth 2.0 authentication and compartment-based authorization.
 
 ## Why It Exists
 
@@ -29,11 +30,12 @@ Healthcare systems worldwide struggle with data interoperability - the ability t
 4. **Comprehensive Features**: Beyond basic FHIR, includes clinical reasoning, quality measures, and advanced data management
 
 ### Business Problem Solved
-- **Data Silos**: Breaking down barriers between healthcare systems
-- **Interoperability Costs**: Reducing integration complexity and costs
-- **Clinical Decision Support**: Enabling evidence-based care at the point of service
-- **Quality Reporting**: Automating clinical quality measure calculation
-- **Patient Safety**: Improving care coordination through better data access
+- **Performance Overhead**: Eliminates separate facade service calls for access control
+- **Deployment Complexity**: Reduces from multiple services to unified server architecture  
+- **Code Maintenance**: Single repository vs. multiple service codebases
+- **Single Points of Failure**: Eliminates service chain dependencies
+- **Multi-tenant Access Control**: Sophisticated RBAC for SaaS healthcare deployments
+- **Healthcare Compliance**: Fine-grained access controls meeting regulatory requirements
 
 ## Project Scope
 
