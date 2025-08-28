@@ -39,7 +39,7 @@ public class FhirTesterConfig {
 	@Bean
 	public TesterConfig testerConfig(AppProperties appProperties) {
 		TesterConfig retVal = new TesterConfig();
-		appProperties.getTester().forEach((key, value) -> {
+		appProperties.getFire_arrow_server().forEach((key, value) -> {
 			retVal.addServer()
 					.withId(key)
 					.withFhirVersion(value.getFhir_version())

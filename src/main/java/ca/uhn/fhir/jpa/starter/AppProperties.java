@@ -81,7 +81,6 @@ public class AppProperties {
 	private Boolean narrative_enabled = true;
 	private Boolean ig_runtime_upload_enabled = false;
 	private Validation validation = new Validation();
-	private Map<String, Tester> tester = null;
 	private Map<String, Tester> fire_arrow_server = null;
 	private Logger logger = new Logger();
 	private Subscription subscription = new Subscription();
@@ -560,13 +559,6 @@ public class AppProperties {
 		}
 	}
 
-	public Map<String, Tester> getTester() {
-		return tester;
-	}
-
-	public void setTester(Map<String, Tester> tester) {
-		this.tester = tester;
-	}
 
 	public Map<String, Tester> getFire_arrow_server() {
 		return fire_arrow_server;
