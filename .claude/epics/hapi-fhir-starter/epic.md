@@ -2,7 +2,8 @@
 name: hapi-fhir-starter
 status: backlog
 created: 2025-08-27T21:25:23Z
-progress: 0%
+updated: 2025-08-28T19:32:59Z
+progress: 25%
 prd: .claude/prds/hapi-fhir-starter.md
 github: https://github.com/evoleen/hapi-fire-arrow/issues/3
 ---
