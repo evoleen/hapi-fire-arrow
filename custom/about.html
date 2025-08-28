@@ -1,14 +1,73 @@
-<p>
-    <b>This is a custom about page! It means you have configured 'custom_content_path: ./custom' in the application.yaml</b>
-</p>
-<p>
-    This server provides a complete implementation of the FHIR Specification
-    using a 100% open source software stack.
-</p>
-<p>
-    This server is built
-    from a number of modules of the
-    <a href="https://github.com/hapifhir/hapi-fhir/">HAPI FHIR</a>
-    project, which is a 100% open-source (Apache 2.0 Licensed) Java based
-    implementation of the FHIR specification.
-</p>
+<div class="fire-arrow-about">
+    <h2 style="color: #e74c3c; margin-bottom: 1rem;">
+        <i class="fa fa-info-circle"></i> About Fire Arrow Server
+    </h2>
+    <div class="row">
+        <div class="col-md-8">
+            <p>
+                <strong>Fire Arrow Server</strong> is a unified FHIR server that integrates dynamic Role-Based Access Control (RBAC) 
+                capabilities directly into the HAPI FHIR JPA starter project. This eliminates the need for separate facade services, 
+                improving performance and simplifying deployment while providing sophisticated healthcare data access controls.
+            </p>
+            <p>
+                Built on the mature <a href="https://github.com/hapifhir/hapi-fhir/" target="_blank">HAPI FHIR</a> 
+                framework with Java 17 and Spring Boot 3.x, it provides enterprise-grade healthcare data infrastructure 
+                with extensive customization capabilities.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <div class="well">
+                <h4>Server Information</h4>
+                <table class="table table-condensed">
+                    <tr><td><strong>Version:</strong></td><td>8.4.0-2</td></tr>
+                    <tr><td><strong>FHIR Version:</strong></td><td>R4/R5</td></tr>
+                    <tr><td><strong>License:</strong></td><td>Apache 2.0</td></tr>
+                    <tr><td><strong>Platform:</strong></td><td>Java 17+ / Spring Boot 3.x</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <h3 style="color: #2c3e50; margin-top: 2rem;">Core Capabilities</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <h4><i class="fa fa-shield" style="color: #e74c3c;"></i> Enterprise Security</h4>
+            <ul>
+                <li>OAuth 2.0 token-based authentication</li>
+                <li>FHIR R4 compartment-based authorization</li>
+                <li>Multi-tenant architecture support</li>
+                <li>Fine-grained access control</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h4><i class="fa fa-rocket" style="color: #e74c3c;"></i> High Performance</h4>
+            <ul>
+                <li>&lt;100ms cached validation response</li>
+                <li>&lt;500ms uncached validation response</li>
+                <li>1000+ concurrent users per tenant</li>
+                <li>Horizontal scaling support</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <h4><i class="fa fa-check-square-o" style="color: #e74c3c;"></i> FHIR Compliance</h4>
+            <ul>
+                <li>Complete FHIR R4/R5 implementation</li>
+                <li>Advanced search capabilities</li>
+                <li>Clinical reasoning (CQL)</li>
+                <li>CDS Hooks integration</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h4><i class="fa fa-cloud" style="color: #e74c3c;"></i> Cloud-Native</h4>
+            <ul>
+                <li>Docker and Kubernetes ready</li>
+                <li>CNPG PostgreSQL integration</li>
+                <li>FluxCD GitOps compatibility</li>
+                <li>Prometheus metrics support</li>
+            </ul>
+        </div>
+    </div>
+</div>

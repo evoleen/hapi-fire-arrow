@@ -1,36 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <div th:fragment="banner">
-    <div class="row">
+    <style>
+        .fire-arrow-logo {
+            display: inline-flex;
+            align-items: center;
+            font-family: 'Arial Black', 'Helvetica', sans-serif;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .fire-arrow-logo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .fire-arrow-icon {
+            margin-right: 15px;
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .fire-arrow-icon::before {
+            content: "🔥";
+            animation: fire-flicker 2s infinite alternate;
+        }
+        
+        .fire-arrow-icon::after {
+            content: "➤";
+            position: absolute;
+            right: -20px;
+            font-size: 2rem;
+            color: #f39c12;
+            animation: arrow-pulse 1.5s infinite;
+        }
+        
+        @keyframes fire-flicker {
+            0% { transform: scale(1) rotate(-1deg); }
+            50% { transform: scale(1.05) rotate(1deg); }
+            100% { transform: scale(1) rotate(-0.5deg); }
+        }
+        
+        @keyframes arrow-pulse {
+            0%, 100% { opacity: 0.7; transform: translateX(0); }
+            50% { opacity: 1; transform: translateX(3px); }
+        }
+        
+        .fire-arrow-text h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .fire-arrow-text .tagline {
+            margin: 2px 0 0 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .server-info {
+            color: #7f8c8d;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            text-align: right;
+        }
+        
+        .server-info strong {
+            color: #2c3e50;
+        }
+    </style>
+    
+    <!-- Set Fire Arrow Server page title and favicon -->
+    <script>
+        // Set page title
+        document.title = 'Fire Arrow Server - Enterprise FHIR Platform';
+        
+        // Add favicon
+        const favicon = document.querySelector('link[rel="icon"]') || document.createElement('link');
+        favicon.rel = 'icon';
+        favicon.type = 'image/svg+xml';
+        favicon.href = 'favicon.svg';
+        if (!document.querySelector('link[rel="icon"]')) {
+            document.head.appendChild(favicon);
+        }
+        
+        // Add fallback PNG favicon for older browsers
+        const faviconPng = document.createElement('link');
+        faviconPng.rel = 'alternate icon';
+        faviconPng.type = 'image/png';
+        faviconPng.href = 'img/favicon.ico';
+        document.head.appendChild(faviconPng);
+        
+        // Ensure title stays correct even if other scripts try to change it
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList' && document.title !== 'Fire Arrow Server - Enterprise FHIR Platform') {
+                    document.title = 'Fire Arrow Server - Enterprise FHIR Platform';
+                }
+            });
+        });
+        observer.observe(document.querySelector('title') || document.head, { childList: true, subtree: true });
+    </script>
+    
+    <div class="row" style="margin-bottom: 2rem;">
         <div class="col-md-8">
-            <img id="logo" src="img/sample-logo.jpg" width="383" alt="Sample Logo"/>
+            <div class="fire-arrow-logo">
+                <div class="fire-arrow-icon"></div>
+                <div class="fire-arrow-text">
+                    <h1>Fire Arrow Server</h1>
+                    <div class="tagline">Enterprise FHIR Platform</div>
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
-            <img src="img/hapi_fhir_banner_right.png" align="right"/>
+            <div class="server-info">
+                <div><strong>FHIR Server</strong> v8.4.0-2</div>
+                <div><strong>FHIR Versions:</strong> R4, R5</div>
+                <div><strong>Status:</strong> <span style="color: #27ae60;">Online</span></div>
+            </div>
         </div>
     </div>
-
-    <script>
-        const customlogoImageUrl = "content/custom/logo.jpg"; // Custom logo
-        const defaultLogoImageUrl = "img/sample-logo.jpg"; // Default logo
-        const logoImageElement = document.getElementById("logo");
-
-        // Check if the logo image is available
-        const logoImg = new Image();
-        logoImg.src = customlogoImageUrl;
-
-        logoImg.onload = function() {
-            // Logo image is available
-            logoImageElement.src = customlogoImageUrl;
-        };
-
-        logoImg.onerror = function() {
-            // Logo image is not available, use the default logo image
-            logoImageElement.src = defaultLogoImageUrl;
-        };
-
-
-    </script>
     <!-- Error banner in case anything went wrong -->
     <div class="alert  alert-danger alert-dismissable" th:if="${errorMsg} != null">
         <strong>Warning!</strong>

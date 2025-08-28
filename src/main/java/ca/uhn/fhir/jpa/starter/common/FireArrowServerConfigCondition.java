@@ -6,12 +6,11 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
-public class FhirTesterConfigCondition implements Condition {
+public class FireArrowServerConfigCondition implements Condition {
 	@Override
 	public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata metadata) {
-
-		var properties = EnvironmentHelper.getPropertiesStartingWith(
-				(ConfigurableEnvironment) conditionContext.getEnvironment(), "hapi.fhir.tester");
-		return !properties.isEmpty();
+		// Fire Arrow Server: Enable UI when fire_arrow_server configuration is present
+		ConfigurableEnvironment configurableEnvironment = (ConfigurableEnvironment) conditionContext.getEnvironment();
+		return EnvironmentHelper.isFireArrowServerUiEnabled(configurableEnvironment);
 	}
 }
