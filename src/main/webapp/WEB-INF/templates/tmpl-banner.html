@@ -84,6 +84,38 @@
         }
     </style>
     
+    <!-- Set Fire Arrow Server page title and favicon -->
+    <script>
+        // Set page title
+        document.title = 'Fire Arrow Server - Enterprise FHIR Platform';
+        
+        // Add favicon
+        const favicon = document.querySelector('link[rel="icon"]') || document.createElement('link');
+        favicon.rel = 'icon';
+        favicon.type = 'image/svg+xml';
+        favicon.href = 'favicon.svg';
+        if (!document.querySelector('link[rel="icon"]')) {
+            document.head.appendChild(favicon);
+        }
+        
+        // Add fallback PNG favicon for older browsers
+        const faviconPng = document.createElement('link');
+        faviconPng.rel = 'alternate icon';
+        faviconPng.type = 'image/png';
+        faviconPng.href = 'img/favicon.ico';
+        document.head.appendChild(faviconPng);
+        
+        // Ensure title stays correct even if other scripts try to change it
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList' && document.title !== 'Fire Arrow Server - Enterprise FHIR Platform') {
+                    document.title = 'Fire Arrow Server - Enterprise FHIR Platform';
+                }
+            });
+        });
+        observer.observe(document.querySelector('title') || document.head, { childList: true, subtree: true });
+    </script>
+    
     <div class="row" style="margin-bottom: 2rem;">
         <div class="col-md-8">
             <div class="fire-arrow-logo">
