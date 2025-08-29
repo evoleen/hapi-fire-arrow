@@ -1,5 +1,11 @@
 # CLAUDE.md
 
+## PROJECT LOCATION AND CONSTRAINTS
+
+**Project Directory**: `/Users/till/Development/hapi-fire-arrow`
+
+**Critical Constraint**: ALL file edits and operations must be performed within this directory or its subdirectories. No edits outside this path are permitted.
+
 > Think carefully and implement the most concise solution that changes as little code as possible.
 
 ## USE SUB-AGENTS FOR CONTEXT OPTIMIZATION
