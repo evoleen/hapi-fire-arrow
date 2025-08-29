@@ -67,6 +67,49 @@ Using the test-runner agent ensures:
 - Occasional pleasantries are fine.
 - Feel free to ask many questions. If you are in doubt of my intent, don't guess. Ask.
 
+## PROJECT PACKAGE STRUCTURE
+
+### Custom Evoleen Code Location
+All custom Evoleen authentication and security code is organized under the `com.evoleen.hapi.faserver` package structure to maintain clear separation from upstream HAPI FHIR code:
+
+**com.evoleen.hapi.faserver.auth**
+- AuthConfigurationProperties.java - OAuth provider configurations  
+- AuthProvider.java - Base interface for auth providers
+- AuthProviderManager.java - Manages multiple auth providers
+- OAuthProvider.java - Standard OAuth/OIDC implementation
+- AzureIdentityProvider.java - Azure Identity SDK implementation
+- AuthProviderConfig.java - Configuration classes and claim mapping
+
+**com.evoleen.hapi.faserver.security**  
+- UserIdentity.java - User identity with FHIR-specific claims
+- JwtValidationResult.java - JWT validation result container
+- JwtTokenValidator.java - JWT validation logic with caching
+- TokenClaimExtractor.java - Extracts user claims from JWT
+- JwtValidationException.java - Custom validation exception
+- SecurityConfig.java - Spring Security configuration
+- OAuth2ResourceServerConfig.java - OAuth2 resource server setup
+- AzureIdentityConfiguration.java - Azure-specific configuration
+- CustomAuthenticationEntryPoint.java - Custom auth entry points
+- JwtAccessDeniedHandler.java - JWT access denied handling
+- JwtAuthenticationEntryPoint.java - JWT authentication entry point
+
+**com.evoleen.hapi.faserver.interceptors**
+- AuthenticationInterceptor.java - HAPI FHIR authentication interceptor
+- AuthorizationInterceptor.java - HAPI FHIR authorization interceptor  
+- InterceptorConfig.java - Registers interceptors with FHIR server
+
+**com.evoleen.hapi.faserver.config**
+- JwtConfiguration.java - JWT-related Spring configuration
+
+### Base HAPI FHIR Code Location
+Original HAPI FHIR starter code remains in `ca.uhn.fhir.jpa.starter` packages and should not be modified to prevent merge conflicts with upstream updates.
+
+### Package Separation Benefits
+- Prevents merge conflicts when updating HAPI FHIR dependencies
+- Clear separation between custom Evoleen features and base FHIR functionality  
+- Easier maintenance and future development
+- Follows proper Java package naming conventions
+
 ## ABSOLUTE RULES:
 
 - NO PARTIAL IMPLEMENTATION
