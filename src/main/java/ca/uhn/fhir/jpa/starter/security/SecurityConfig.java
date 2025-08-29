@@ -1,6 +1,6 @@
 package ca.uhn.fhir.jpa.starter.security;
 
-import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

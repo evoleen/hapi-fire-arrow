@@ -1,4 +1,4 @@
-package ca.uhn.fhir.jpa.starter.auth;
+package com.evoleen.hapi.faserver.auth;
 
 import jakarta.validation.constraints.NotEmpty;
 

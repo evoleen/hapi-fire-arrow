@@ -1,6 +1,6 @@
 package ca.uhn.fhir.jpa.starter.security;
 
-import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +42,7 @@ public class AzureIdentityConfiguration {
     @ConditionalOnProperty(name = "hapi.fhir.auth.providers.azure_example.enabled", havingValue = "true")
     public JwtDecoder azureJwtDecoder() {
         // Get Azure configuration from the first Azure provider found
-        AuthConfigurationProperties.OAuthProvider azureProvider = getAzureProvider();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration azureProvider = getAzureProvider();
         if (azureProvider == null || azureProvider.getAzure() == null) {
             throw new IllegalStateException("Azure OAuth provider configuration not found or incomplete");
         }
@@ -83,7 +83,7 @@ public class AzureIdentityConfiguration {
         JwtGrantedAuthoritiesConverter authoritiesConverter = new JwtGrantedAuthoritiesConverter();
         
         // Get claim mapping (provider-specific or default)
-        AuthConfigurationProperties.ClaimMapping claimMapping = getEffectiveClaimMapping();
+        com.evoleen.hapi.faserver.auth.AuthProviderConfig.ClaimMapping claimMapping = getEffectiveClaimMapping();
         authoritiesConverter.setAuthoritiesClaimName(claimMapping.getRoles());
         authoritiesConverter.setAuthorityPrefix(""); // No prefix for roles
         
@@ -97,7 +97,7 @@ public class AzureIdentityConfiguration {
      * 
      * @return Azure OAuth provider configuration or null if not found
      */
-    private AuthConfigurationProperties.OAuthProvider getAzureProvider() {
+    private com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration getAzureProvider() {
         return authProperties.getProviders().values().stream()
             .filter(provider -> "azure".equals(provider.getType()) && provider.isEnabled())
             .findFirst()
@@ -110,8 +110,8 @@ public class AzureIdentityConfiguration {
      * 
      * @return Effective claim mapping
      */
-    private AuthConfigurationProperties.ClaimMapping getEffectiveClaimMapping() {
-        AuthConfigurationProperties.OAuthProvider azureProvider = getAzureProvider();
+    private com.evoleen.hapi.faserver.auth.AuthProviderConfig.ClaimMapping getEffectiveClaimMapping() {
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration azureProvider = getAzureProvider();
         if (azureProvider != null && azureProvider.getClaimMapping() != null) {
             return azureProvider.getClaimMapping();
         }

@@ -1,6 +1,6 @@
 package ca.uhn.fhir.jpa.starter.interceptors;
 
-import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import ca.uhn.fhir.jpa.starter.security.*;
 import ca.uhn.fhir.rest.api.server.RequestDetails;
 import ca.uhn.fhir.rest.server.exceptions.AuthenticationException;
@@ -62,8 +62,8 @@ class AuthenticationInterceptorTest {
         when(requestDetails.getRequestPath()).thenReturn("/fhir/Patient");
         
         // Mock provider configuration
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
-        AuthConfigurationProperties.OAuthProvider provider = mock(AuthConfigurationProperties.OAuthProvider.class);
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = mock(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration.class);
         when(provider.isEnabled()).thenReturn(true);
         providers.put(providerName, provider);
         when(authConfig.getProviders()).thenReturn(providers);
@@ -128,8 +128,8 @@ class AuthenticationInterceptorTest {
         when(requestDetails.getRequestPath()).thenReturn("/fhir/Patient");
         
         // Mock provider configuration
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
-        AuthConfigurationProperties.OAuthProvider provider = mock(AuthConfigurationProperties.OAuthProvider.class);
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = mock(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration.class);
         when(provider.isEnabled()).thenReturn(true);
         providers.put(providerName, provider);
         when(authConfig.getProviders()).thenReturn(providers);
@@ -181,8 +181,8 @@ class AuthenticationInterceptorTest {
         when(requestDetails.getRequestPath()).thenReturn("/fhir/Patient");
         
         // Mock provider configuration
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
-        AuthConfigurationProperties.OAuthProvider provider = mock(AuthConfigurationProperties.OAuthProvider.class);
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = mock(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration.class);
         when(provider.isEnabled()).thenReturn(true);
         providers.put(providerName, provider);
         when(authConfig.getProviders()).thenReturn(providers);
@@ -249,15 +249,15 @@ class AuthenticationInterceptorTest {
         when(requestDetails.getRequestPath()).thenReturn("/fhir/Patient");
         
         // Mock multiple providers
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
         
         // Standard provider
-        AuthConfigurationProperties.OAuthProvider standardProvider = mock(AuthConfigurationProperties.OAuthProvider.class);
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration standardProvider = mock(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration.class);
         when(standardProvider.isEnabled()).thenReturn(true);
         providers.put("standard-provider", standardProvider);
         
         // Azure provider
-        AuthConfigurationProperties.OAuthProvider azureProvider = mock(AuthConfigurationProperties.OAuthProvider.class);
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration azureProvider = mock(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration.class);
         when(azureProvider.isEnabled()).thenReturn(true);
         providers.put("azure-provider", azureProvider);
         
@@ -299,8 +299,8 @@ class AuthenticationInterceptorTest {
                 .thenReturn("Bearer " + newToken);
         when(requestDetails.getRequestPath()).thenReturn("/fhir/Patient");
         
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
-        AuthConfigurationProperties.OAuthProvider provider = mock(AuthConfigurationProperties.OAuthProvider.class);
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = mock(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration.class);
         when(provider.isEnabled()).thenReturn(true);
         providers.put("test-provider", provider);
         when(authConfig.getProviders()).thenReturn(providers);
@@ -341,8 +341,8 @@ class AuthenticationInterceptorTest {
         when(httpRequest.getHeader("Authorization")).thenReturn("Bearer " + token);
         when(requestDetails.getRequestPath()).thenReturn("/fhir/Patient");
         
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
-        AuthConfigurationProperties.OAuthProvider provider = mock(AuthConfigurationProperties.OAuthProvider.class);
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = mock(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration.class);
         when(provider.isEnabled()).thenReturn(true);
         providers.put("test-provider", provider);
         when(authConfig.getProviders()).thenReturn(providers);
@@ -421,8 +421,8 @@ class AuthenticationInterceptorTest {
         when(httpRequest.getHeader("Authorization")).thenReturn("Bearer " + token);
         when(requestDetails.getRequestPath()).thenReturn("/fhir/Patient");
         
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
-        AuthConfigurationProperties.OAuthProvider provider = mock(AuthConfigurationProperties.OAuthProvider.class);
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = mock(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration.class);
         when(provider.isEnabled()).thenReturn(true);
         providers.put("test-provider", provider);
         when(authConfig.getProviders()).thenReturn(providers);
@@ -444,8 +444,8 @@ class AuthenticationInterceptorTest {
         when(httpRequest.getHeader("Authorization")).thenReturn("Bearer " + token);
         when(requestDetails.getRequestPath()).thenReturn("/fhir/Patient");
         
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
-        AuthConfigurationProperties.OAuthProvider provider = mock(AuthConfigurationProperties.OAuthProvider.class);
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = mock(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration.class);
         when(provider.isEnabled()).thenReturn(true);
         providers.put("test-provider", provider);
         when(authConfig.getProviders()).thenReturn(providers);
@@ -490,8 +490,8 @@ class AuthenticationInterceptorTest {
         
         when(httpRequest.getHeader("Authorization")).thenReturn("Bearer " + token);
         
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
-        AuthConfigurationProperties.OAuthProvider provider = mock(AuthConfigurationProperties.OAuthProvider.class);
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = mock(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration.class);
         when(provider.isEnabled()).thenReturn(true);
         providers.put("test-provider", provider);
         when(authConfig.getProviders()).thenReturn(providers);
@@ -521,8 +521,8 @@ class AuthenticationInterceptorTest {
         when(httpRequest.getHeader("Authorization")).thenReturn("Bearer " + token);
         when(requestDetails.getRequestPath()).thenReturn("/fhir/Patient");
         
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
-        AuthConfigurationProperties.OAuthProvider azureProvider = mock(AuthConfigurationProperties.OAuthProvider.class);
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration azureProvider = mock(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration.class);
         when(azureProvider.isEnabled()).thenReturn(true);
         providers.put("azure-provider", azureProvider);
         when(authConfig.getProviders()).thenReturn(providers);
@@ -562,8 +562,8 @@ class AuthenticationInterceptorTest {
         when(httpRequest.getHeader("Authorization")).thenReturn("Bearer " + token);
         when(requestDetails.getRequestPath()).thenReturn("/fhir/Patient");
         
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
-        AuthConfigurationProperties.OAuthProvider provider = mock(AuthConfigurationProperties.OAuthProvider.class);
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = mock(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration.class);
         when(provider.isEnabled()).thenReturn(true);
         providers.put(providerName, provider);
         when(authConfig.getProviders()).thenReturn(providers);

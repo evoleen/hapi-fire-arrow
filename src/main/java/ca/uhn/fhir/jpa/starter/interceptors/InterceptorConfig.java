@@ -1,6 +1,6 @@
 package ca.uhn.fhir.jpa.starter.interceptors;
 
-import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import ca.uhn.fhir.jpa.starter.security.JwtTokenValidator;
 import ca.uhn.fhir.jpa.starter.security.TokenClaimExtractor;
 import ca.uhn.fhir.rest.server.RestfulServer;

@@ -1,6 +1,6 @@
 package ca.uhn.fhir.jpa.starter.security;
 
-import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import com.nimbusds.jwt.JWTClaimsSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -178,8 +178,8 @@ class TokenClaimExtractorTest {
     void extractUserIdentity_ProviderSpecificClaimMapping_UsesProviderMapping() throws Exception {
         // Arrange
         // Create provider with custom claim mapping
-        AuthConfigurationProperties.ClaimMapping customMapping = 
-                new AuthConfigurationProperties.ClaimMapping();
+        com.evoleen.hapi.faserver.auth.AuthProviderConfig.ClaimMapping customMapping = 
+                new com.evoleen.hapi.faserver.auth.AuthProviderConfig.ClaimMapping();
         customMapping.setUserId("custom_user_id");
         customMapping.setUserRoleResourceType("custom_resource_type");
         customMapping.setFhirId("custom_fhir_id");
@@ -332,18 +332,18 @@ class TokenClaimExtractorTest {
         config.setEnabled(true);
         
         // Create a test provider
-        AuthConfigurationProperties.OAuthProvider provider = 
-                new AuthConfigurationProperties.OAuthProvider();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = 
+                new com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration();
         provider.setType("standard");
         provider.setEnabled(true);
         
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
         providers.put("test-provider", provider);
         config.setProviders(providers);
         
         // Set up default claim mapping
-        AuthConfigurationProperties.ClaimMapping claimMapping = 
-                new AuthConfigurationProperties.ClaimMapping();
+        com.evoleen.hapi.faserver.auth.AuthProviderConfig.ClaimMapping claimMapping = 
+                new com.evoleen.hapi.faserver.auth.AuthProviderConfig.ClaimMapping();
         claimMapping.setUserId("sub");
         claimMapping.setUserRoleResourceType("resource_type");
         claimMapping.setFhirId("fhir_id");

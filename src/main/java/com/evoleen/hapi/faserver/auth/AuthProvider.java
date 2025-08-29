@@ -1,4 +1,4 @@
-package ca.uhn.fhir.jpa.starter.auth;
+package com.evoleen.hapi.faserver.auth;
 
 import ca.uhn.fhir.jpa.starter.security.JwtValidationResult;
 

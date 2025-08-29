@@ -1,6 +1,6 @@
 package ca.uhn.fhir.jpa.starter.security;
 
-import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import com.nimbusds.jwt.JWTClaimsSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,7 @@ public class TokenClaimExtractor {
         }
         
         // Get claim mapping configuration for the provider
-        AuthConfigurationProperties.ClaimMapping claimMapping = getClaimMapping(providerName);
+        com.evoleen.hapi.faserver.auth.AuthProviderConfig.ClaimMapping claimMapping = getClaimMapping(providerName);
         
         try {
             UserIdentity.Builder builder = new UserIdentity.Builder();
@@ -111,8 +111,8 @@ public class TokenClaimExtractor {
     /**
      * Gets claim mapping configuration for a provider
      */
-    private AuthConfigurationProperties.ClaimMapping getClaimMapping(String providerName) {
-        AuthConfigurationProperties.OAuthProvider provider = authConfig.getProviders().get(providerName);
+    private com.evoleen.hapi.faserver.auth.AuthProviderConfig.ClaimMapping getClaimMapping(String providerName) {
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = authConfig.getProviders().get(providerName);
         
         if (provider != null && provider.getClaimMapping() != null) {
             // Use provider-specific claim mapping

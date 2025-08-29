@@ -1,6 +1,6 @@
 package ca.uhn.fhir.jpa.starter.security;
 
-import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSVerifier;
@@ -100,7 +100,7 @@ public class JwtTokenValidator {
      * Performs the actual token validation
      */
     private JwtValidationResult performTokenValidation(String token, String providerName) throws JwtValidationException {
-        AuthConfigurationProperties.OAuthProvider provider = authConfig.getProviders().get(providerName);
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = authConfig.getProviders().get(providerName);
         if (provider == null || !provider.isEnabled()) {
             throw new JwtValidationException("Provider " + providerName + " is not configured or disabled");
         }
@@ -160,7 +160,7 @@ public class JwtTokenValidator {
     /**
      * Retrieves JWK set for a provider with caching
      */
-    private JWKSet getJWKSet(AuthConfigurationProperties.OAuthProvider provider) throws JwtValidationException {
+    private JWKSet getJWKSet(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) throws JwtValidationException {
         String jwksUri = getJwksUri(provider);
         if (!StringUtils.hasText(jwksUri)) {
             throw new JwtValidationException("Unable to determine JWKS URI for provider");
@@ -190,7 +190,7 @@ public class JwtTokenValidator {
     /**
      * Gets the JWKS URI for a provider
      */
-    private String getJwksUri(AuthConfigurationProperties.OAuthProvider provider) {
+    private String getJwksUri(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
         if ("azure".equalsIgnoreCase(provider.getType()) && provider.getAzure() != null) {
             // Azure AD JWKS URI format
             String instance = provider.getAzure().getInstance();
@@ -252,7 +252,7 @@ public class JwtTokenValidator {
     /**
      * Validates JWT audience claim
      */
-    private boolean validateAudience(JWTClaimsSet claimsSet, AuthConfigurationProperties.OAuthProvider provider) {
+    private boolean validateAudience(JWTClaimsSet claimsSet, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
         try {
             List<String> audiences = claimsSet.getAudience();
             if (audiences == null || audiences.isEmpty()) {
@@ -275,7 +275,7 @@ public class JwtTokenValidator {
     /**
      * Gets expected audience for a provider
      */
-    private String getExpectedAudience(AuthConfigurationProperties.OAuthProvider provider) {
+    private String getExpectedAudience(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
         if ("azure".equalsIgnoreCase(provider.getType()) && provider.getAzure() != null) {
             return provider.getAzure().getApplicationId();
         } else if ("standard".equalsIgnoreCase(provider.getType()) && provider.getStandard() != null) {
@@ -287,7 +287,7 @@ public class JwtTokenValidator {
     /**
      * Validates JWT issuer claim
      */
-    private boolean validateIssuer(JWTClaimsSet claimsSet, AuthConfigurationProperties.OAuthProvider provider) {
+    private boolean validateIssuer(JWTClaimsSet claimsSet, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
         try {
             String issuer = claimsSet.getIssuer();
             if (!StringUtils.hasText(issuer)) {
@@ -310,7 +310,7 @@ public class JwtTokenValidator {
     /**
      * Gets expected issuer for a provider
      */
-    private String getExpectedIssuer(AuthConfigurationProperties.OAuthProvider provider) {
+    private String getExpectedIssuer(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
         if ("azure".equalsIgnoreCase(provider.getType()) && provider.getAzure() != null) {
             return provider.getAzure().getInstance() + provider.getAzure().getTenantId() + "/v2.0";
         }

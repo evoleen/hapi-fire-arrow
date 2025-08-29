@@ -1,6 +1,6 @@
 package ca.uhn.fhir.jpa.starter.security;
 
-import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -61,8 +61,8 @@ class SecurityConfigTest {
             config.setEnabled(true);
             config.setRequired(true);
             
-            Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
-            AuthConfigurationProperties.OAuthProvider provider = new AuthConfigurationProperties.OAuthProvider();
+            Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
+            com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = new com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration();
             provider.setType("standard");
             provider.setEnabled(true);
             providers.put("test-provider", provider);
@@ -163,16 +163,16 @@ class SecurityConfigTest {
         AuthConfigurationProperties config = new AuthConfigurationProperties();
         config.setEnabled(true);
         
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
         
         // Azure provider
-        AuthConfigurationProperties.OAuthProvider azureProvider = new AuthConfigurationProperties.OAuthProvider();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration azureProvider = new com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration();
         azureProvider.setType("azure");
         azureProvider.setEnabled(true);
         providers.put("azure", azureProvider);
         
         // Standard OAuth provider
-        AuthConfigurationProperties.OAuthProvider standardProvider = new AuthConfigurationProperties.OAuthProvider();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration standardProvider = new com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration();
         standardProvider.setType("standard");
         standardProvider.setEnabled(true);
         providers.put("oidc", standardProvider);

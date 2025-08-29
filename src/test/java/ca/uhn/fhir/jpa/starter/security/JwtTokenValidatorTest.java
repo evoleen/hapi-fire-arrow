@@ -1,6 +1,6 @@
 package ca.uhn.fhir.jpa.starter.security;
 
-import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.crypto.RSASSASigner;
@@ -194,8 +194,8 @@ class JwtTokenValidatorTest {
         config.setEnabled(true);
         
         // Create a test provider
-        AuthConfigurationProperties.OAuthProvider provider = 
-                new AuthConfigurationProperties.OAuthProvider();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider = 
+                new com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration();
         provider.setType("standard");
         provider.setEnabled(true);
         
@@ -205,13 +205,13 @@ class JwtTokenValidatorTest {
         standardConfig.setAudience("test-audience");
         provider.setStandard(standardConfig);
         
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = new HashMap<>();
+        Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
         providers.put("test-provider", provider);
         config.setProviders(providers);
         
         // Set up default claim mapping
-        AuthConfigurationProperties.ClaimMapping claimMapping = 
-                new AuthConfigurationProperties.ClaimMapping();
+        com.evoleen.hapi.faserver.auth.AuthProviderConfig.ClaimMapping claimMapping = 
+                new com.evoleen.hapi.faserver.auth.AuthProviderConfig.ClaimMapping();
         claimMapping.setUserId("sub");
         claimMapping.setUserRoleResourceType("resource_type");
         claimMapping.setFhirId("fhir_id");
@@ -391,8 +391,8 @@ class JwtTokenValidatorTest {
         String providerName = "azure-provider";
         
         // Add Azure provider to config
-        AuthConfigurationProperties.OAuthProvider azureProvider = 
-                new AuthConfigurationProperties.OAuthProvider();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration azureProvider = 
+                new com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration();
         azureProvider.setType("azure");
         azureProvider.setEnabled(true);
         
@@ -498,8 +498,8 @@ class JwtTokenValidatorTest {
         String azureToken = createAzureTestToken();
         
         // Add Azure provider
-        AuthConfigurationProperties.OAuthProvider azureProvider = 
-                new AuthConfigurationProperties.OAuthProvider();
+        com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration azureProvider = 
+                new com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration();
         azureProvider.setType("azure");
         azureProvider.setEnabled(true);
         

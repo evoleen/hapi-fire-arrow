@@ -1,6 +1,6 @@
 package ca.uhn.fhir.jpa.starter.security;
 
-import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -43,7 +43,7 @@ public class OAuth2ResourceServerConfig {
 
         // If only one provider, create a simple JWT decoder
         if (authConfig.getProviders().size() == 1) {
-            Map.Entry<String, AuthConfigurationProperties.OAuthProvider> entry = 
+            Map.Entry<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> entry = 
                 authConfig.getProviders().entrySet().iterator().next();
             return createJwtDecoderForProvider(entry.getKey(), entry.getValue());
         }
@@ -77,7 +77,7 @@ public class OAuth2ResourceServerConfig {
     private Converter<Jwt, Collection<GrantedAuthority>> jwtGrantedAuthoritiesConverter() {
         return jwt -> {
             // Get the appropriate claim mapping (provider-specific or default)
-            AuthConfigurationProperties.ClaimMapping claimMapping = authConfig.getDefaultClaimMapping();
+            com.evoleen.hapi.faserver.auth.AuthProviderConfig.ClaimMapping claimMapping = authConfig.getDefaultClaimMapping();
             
             Collection<GrantedAuthority> authorities = new ArrayList<>();
             
@@ -109,7 +109,7 @@ public class OAuth2ResourceServerConfig {
     /**
      * Creates a JWT decoder for a single OAuth provider.
      */
-    private JwtDecoder createJwtDecoderForProvider(String providerName, AuthConfigurationProperties.OAuthProvider provider) {
+    private JwtDecoder createJwtDecoderForProvider(String providerName, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
         logger.info("Creating JWT decoder for provider: {} (type: {})", providerName, provider.getType());
 
         try {
@@ -153,7 +153,7 @@ public class OAuth2ResourceServerConfig {
         
         Map<String, JwtDecoder> decoders = new HashMap<>();
         
-        for (Map.Entry<String, AuthConfigurationProperties.OAuthProvider> entry : authConfig.getProviders().entrySet()) {
+        for (Map.Entry<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> entry : authConfig.getProviders().entrySet()) {
             if (entry.getValue().isEnabled()) {
                 decoders.put(entry.getKey(), createJwtDecoderForProvider(entry.getKey(), entry.getValue()));
             }

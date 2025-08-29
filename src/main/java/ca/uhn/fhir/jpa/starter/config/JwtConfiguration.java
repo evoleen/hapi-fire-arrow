@@ -161,7 +161,7 @@ public class JwtConfiguration {
             logger.info("JWT configuration validation completed successfully");
         }
         
-        private void validateProvider(String providerName, AuthConfigurationProperties.OAuthProvider provider) {
+        private void validateProvider(String providerName, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
             String type = provider.getType();
             
             if ("azure".equalsIgnoreCase(type)) {
@@ -178,7 +178,7 @@ public class JwtConfiguration {
             }
         }
         
-        private void validateAzureProvider(String providerName, AuthConfigurationProperties.OAuthProvider provider) {
+        private void validateAzureProvider(String providerName, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
             var azure = provider.getAzure();
             if (azure == null) {
                 logger.error("Provider '{}' is type 'azure' but azure configuration is missing", providerName);
@@ -196,7 +196,7 @@ public class JwtConfiguration {
             logger.info("Azure provider '{}' configured for tenant '{}'", providerName, azure.getTenantId());
         }
         
-        private void validateStandardProvider(String providerName, AuthConfigurationProperties.OAuthProvider provider) {
+        private void validateStandardProvider(String providerName, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
             var standard = provider.getStandard();
             if (standard == null) {
                 logger.error("Provider '{}' is type 'standard' but standard configuration is missing", providerName);
@@ -215,7 +215,7 @@ public class JwtConfiguration {
                     providerName, standard.getDiscoveryUrl());
         }
         
-        private void validateClaimMapping(String context, AuthConfigurationProperties.ClaimMapping claimMapping) {
+        private void validateClaimMapping(String context, com.evoleen.hapi.faserver.auth.AuthProviderConfig.ClaimMapping claimMapping) {
             if (claimMapping.getUserId() == null || claimMapping.getUserId().trim().isEmpty()) {
                 logger.warn("{} claim mapping is missing userId field - this may cause authentication failures", context);
             }
