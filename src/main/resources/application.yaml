@@ -380,10 +380,13 @@ hapi:
 #  protocol: 'http'
 #  schema_management_strategy: CREATE
     # OAuth 2.0 Authentication Configuration
-    # Supports multiple OAuth providers including Azure Identity and standard OAuth/OIDC
+    # Uses AuthProvider pattern with concrete implementations for different OAuth providers
     auth:
       # Enable OAuth authentication globally
       enabled: ${OAUTH_ENABLED:false}
+      
+      # Whether authentication is required for all requests
+      required: ${OAUTH_REQUIRED:true}
       
       # Default claim field mappings for user identity extraction
       # These can be overridden per provider
@@ -401,13 +404,13 @@ hapi:
         # JWT claim field containing user name
         name: ${OAUTH_DEFAULT_NAME_CLAIM:name}
       
-      # OAuth provider configurations
+      # Authentication provider configurations
       providers:
         # Example Azure Identity configuration
         azure_example:
-          type: azure
+          type: azure_identity
           enabled: ${OAUTH_AZURE_ENABLED:false}
-          azure:
+          azure_identity:
             # Azure Active Directory tenant ID
             tenant_id: ${AZURE_TENANT_ID:your-tenant-id}
             # Azure application (client) ID
@@ -423,11 +426,11 @@ hapi:
             email: ${AZURE_EMAIL_CLAIM:email}
             name: ${AZURE_NAME_CLAIM:name}
         
-        # Example standard OAuth/OIDC configuration
+        # Example OAuth/OIDC configuration
         oidc_example:
-          type: standard
+          type: oauth
           enabled: ${OAUTH_OIDC_ENABLED:false}
-          standard:
+          oauth:
             # OIDC discovery URL for automatic configuration
             discovery_url: ${OIDC_DISCOVERY_URL:https://your-provider/.well-known/openid-configuration}
             # Expected audience for JWT tokens
@@ -447,9 +450,9 @@ hapi:
         
         # You can add multiple providers as needed
         # custom_provider:
-        #   type: standard
+        #   type: oauth
         #   enabled: true
-        #   standard:
+        #   oauth:
         #     discovery_url: https://custom-provider/.well-known/openid-configuration
         #     audience: custom-audience
 #  username: SomeUsername

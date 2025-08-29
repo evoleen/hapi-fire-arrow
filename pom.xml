@@ -7,7 +7,7 @@
         <java.version>17</java.version>
         <hapi.fhir.jpa.server.starter.revision>2</hapi.fhir.jpa.server.starter.revision>
         <clinical-reasoning.version>3.26.0</clinical-reasoning.version>
-        <spring_boot_version>3.2.8</spring_boot_version>
+        <spring_boot_version>3.5.5</spring_boot_version>
     </properties>
 
     <!-- one-liner to take you to the cloud with settings form the application.yaml file: -->
@@ -410,13 +410,20 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-oauth2-jose</artifactId>
-            <version>6.2.5</version>
+            <version>6.5.3</version>
         </dependency>
         
         <dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>nimbus-jose-jwt</artifactId>
-            <version>9.37.3</version>
+            <version>10.4.2</version>
+        </dependency>
+        
+        <!-- Azure Identity SDK for Azure authentication provider -->
+        <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-identity</artifactId>
+            <version>1.13.2</version>
         </dependency>
 
     </dependencies>

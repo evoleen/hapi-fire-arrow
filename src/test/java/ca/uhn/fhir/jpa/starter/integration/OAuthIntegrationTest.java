@@ -1,6 +1,6 @@
 package ca.uhn.fhir.jpa.starter.integration;
 
-import ca.uhn.fhir.jpa.starter.config.AuthConfigurationProperties;
+import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
 import ca.uhn.fhir.jpa.starter.security.*;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
 import com.nimbusds.jose.JWSAlgorithm;

@@ -3,12 +3,10 @@ package ca.uhn.fhir.jpa.starter.interceptors;
 import ca.uhn.fhir.interceptor.api.Hook;
 import ca.uhn.fhir.interceptor.api.Interceptor;
 import ca.uhn.fhir.interceptor.api.Pointcut;
-import ca.uhn.fhir.jpa.starter.security.JwtTokenValidator;
-import ca.uhn.fhir.jpa.starter.security.JwtValidationException;
+import ca.uhn.fhir.jpa.starter.auth.AuthProviderManager;
 import ca.uhn.fhir.jpa.starter.security.JwtValidationResult;
-import ca.uhn.fhir.jpa.starter.security.TokenClaimExtractor;
 import ca.uhn.fhir.jpa.starter.security.UserIdentity;
-import ca.uhn.fhir.jpa.starter.config.AuthConfigurationProperties;
+import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
 import ca.uhn.fhir.rest.api.server.RequestDetails;
 import ca.uhn.fhir.rest.server.exceptions.AuthenticationException;
 import ca.uhn.fhir.rest.server.servlet.ServletRequestDetails;
@@ -19,14 +17,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 /**
  * HAPI FHIR Authentication Interceptor that validates JWT tokens in incoming requests.
  * 
  * This interceptor hooks into the HAPI FHIR request processing pipeline to:
  * - Extract JWT tokens from Authorization headers
- * - Validate tokens using configured OAuth providers
+ * - Validate tokens using configured OAuth providers via AuthProviderManager
  * - Extract user identity information from token claims
  * - Store user identity in request context for authorization
  * 
@@ -45,17 +42,10 @@ public class AuthenticationInterceptor {
     private static final String BEARER_PREFIX = "Bearer ";
     private static final String AUTHORIZATION_HEADER = "Authorization";
     
-    private final JwtTokenValidator jwtTokenValidator;
-    private final TokenClaimExtractor tokenClaimExtractor;
-    private final AuthConfigurationProperties authConfig;
+    private final AuthProviderManager authProviderManager;
     
-    public AuthenticationInterceptor(
-            JwtTokenValidator jwtTokenValidator,
-            TokenClaimExtractor tokenClaimExtractor,
-            AuthConfigurationProperties authConfig) {
-        this.jwtTokenValidator = jwtTokenValidator;
-        this.tokenClaimExtractor = tokenClaimExtractor;
-        this.authConfig = authConfig;
+    public AuthenticationInterceptor(AuthProviderManager authProviderManager) {
+        this.authProviderManager = authProviderManager;
     }
     
     /**
@@ -82,43 +72,20 @@ public class AuthenticationInterceptor {
                 return false;
             }
             
-            // Determine which OAuth provider to use
-            String providerName = determineProvider(theRequestDetails, token);
-            
-            if (!StringUtils.hasText(providerName)) {
-                logger.warn("No OAuth provider could be determined for request");
-                throw new AuthenticationException("Authentication failed: No suitable OAuth provider found");
-            }
-            
-            // Validate the JWT token
-            JwtValidationResult validationResult = jwtTokenValidator.validateToken(token, providerName);
+            // Validate the JWT token using AuthProviderManager
+            JwtValidationResult validationResult = authProviderManager.validateToken(token);
             
             if (!validationResult.isValid()) {
                 logger.warn("JWT token validation failed: {}", validationResult.getErrorMessage());
                 throw new AuthenticationException("Authentication failed: " + validationResult.getErrorMessage());
             }
             
-            // Extract user identity from token claims
-            UserIdentity userIdentity = tokenClaimExtractor.extractUserIdentity(
-                    validationResult.getClaimsSet(), providerName);
-            
-            if (userIdentity == null) {
-                logger.warn("Failed to extract user identity from JWT token claims");
-                throw new AuthenticationException("Authentication failed: Unable to extract user identity");
-            }
-            
-            // Validate FHIR-specific claims
-            if (!tokenClaimExtractor.validateFhirClaims(userIdentity)) {
-                logger.warn("FHIR claim validation failed for user: {}", userIdentity.getUserId());
-                throw new AuthenticationException("Authentication failed: Invalid FHIR claims");
-            }
-            
             // Store user identity and provider info in request context
-            theRequestDetails.setAttribute(USER_IDENTITY_ATTRIBUTE, userIdentity);
-            theRequestDetails.setAttribute(AUTH_PROVIDER_ATTRIBUTE, providerName);
+            theRequestDetails.setAttribute(USER_IDENTITY_ATTRIBUTE, validationResult.getUserIdentity());
+            theRequestDetails.setAttribute(AUTH_PROVIDER_ATTRIBUTE, validationResult.getProviderName());
             
             logger.debug("Successfully authenticated user: {} with provider: {}", 
-                    userIdentity.getUserId(), providerName);
+                    validationResult.getUserIdentity().getUserId(), validationResult.getProviderName());
             
             return true;
             
@@ -164,33 +131,6 @@ public class AuthenticationInterceptor {
     }
     
     /**
-     * Determines which OAuth provider to use for token validation
-     */
-    private String determineProvider(RequestDetails theRequestDetails, String token) {
-        // For now, we'll use the first enabled provider
-        // In a more sophisticated implementation, we could:
-        // 1. Parse the token header to get issuer information
-        // 2. Use request-specific headers or parameters
-        // 3. Use token audience claims
-        
-        Map<String, AuthConfigurationProperties.OAuthProvider> providers = authConfig.getProviders();
-        if (providers == null || providers.isEmpty()) {
-            logger.warn("No OAuth providers configured");
-            return null;
-        }
-        
-        // Return the first enabled provider
-        for (Map.Entry<String, AuthConfigurationProperties.OAuthProvider> entry : providers.entrySet()) {
-            if (entry.getValue().isEnabled()) {
-                return entry.getKey();
-            }
-        }
-        
-        logger.warn("No enabled OAuth providers found");
-        return null;
-    }
-    
-    /**
      * Determines if authentication should be skipped for this request
      */
     private boolean shouldSkipAuthentication(RequestDetails theRequestDetails) {
@@ -209,8 +149,7 @@ public class AuthenticationInterceptor {
             return true;
         }
         
-        // Check if authentication is globally disabled
-        return !authConfig.isEnabled();
+        return false;
     }
     
     /**
@@ -218,7 +157,7 @@ public class AuthenticationInterceptor {
      */
     private void handleMissingToken(RequestDetails theRequestDetails) {
         // Check if authentication is required for this endpoint
-        if (authConfig.isRequired() && !shouldSkipAuthentication(theRequestDetails)) {
+        if (authProviderManager.isAuthenticationRequired() && !shouldSkipAuthentication(theRequestDetails)) {
             logger.warn("Missing authentication token for protected endpoint: {}", 
                     theRequestDetails.getRequestPath());
             throw new AuthenticationException("Authentication required: Missing or invalid Authorization header");

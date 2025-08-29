@@ -1,6 +1,6 @@
 package ca.uhn.fhir.jpa.starter.interceptors;
 
-import ca.uhn.fhir.jpa.starter.config.AuthConfigurationProperties;
+import ca.uhn.fhir.jpa.starter.auth.AuthConfigurationProperties;
 import ca.uhn.fhir.jpa.starter.security.*;
 import ca.uhn.fhir.rest.api.server.RequestDetails;
 import ca.uhn.fhir.rest.server.exceptions.AuthenticationException;
