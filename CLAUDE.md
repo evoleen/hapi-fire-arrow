@@ -8,6 +8,16 @@
 
 > Think carefully and implement the most concise solution that changes as little code as possible.
 
+## FILE OPERATIONS REQUIREMENT
+
+**CRITICAL**: ALL file read/write activities MUST be performed via the mcp-text-editor MCP server. This is a mandatory requirement that overrides any other file operation methods.
+
+### File Operation Rules
+- Use mcp-text-editor for ALL file reads, writes, and edits
+- No exceptions to this rule - all file I/O goes through mcp-text-editor
+- This ensures proper file handling, permissions, and consistency
+- The mcp-text-editor provides optimized file operations for this environment
+
 ## USE SUB-AGENTS FOR CONTEXT OPTIMIZATION
 
 ### 1. Always use the file-analyzer sub-agent when asked to read files.
