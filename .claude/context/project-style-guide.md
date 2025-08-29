@@ -350,3 +350,31 @@ Fixes #123
 - **Response Size**: Minimize response payload size
 - **Caching Headers**: Use appropriate HTTP caching headers
 - **Async Processing**: Use asynchronous processing for long-running operations
+## Testing and Validation Requirements
+
+### Smoke Test Protocol
+**MANDATORY**: Every change to the project MUST include a complete smoke test before being considered complete.
+
+#### Smoke Test Components
+1. **Test Suite Execution**: Run the complete test suite to verify no regressions
+2. **Maven Validation**: Execute basic Maven checks and packaging
+3. **Server Startup Test**: Start the server and monitor for at least 20 seconds for any errors
+
+#### Smoke Test Command Sequence
+**CRITICAL**: Use ONLY the following command to run the project:
+```bash
+mvn clean package spring-boot:repackage -DskipTests=true -Pboot && java -jar target/ROOT.war
+```
+
+#### Smoke Test Success Criteria
+- All tests pass without failures or errors
+- Maven build completes successfully with no compilation errors
+- Server starts without errors and remains stable for minimum 20 seconds
+- No exception traces or error logs during startup phase
+- Server responds to basic health checks (if applicable)
+
+#### Smoke Test Failure Response
+- **STOP**: Do not proceed with any commits or merges
+- Identify and fix the root cause of the failure
+- Re-run complete smoke test until all criteria pass
+- Document any configuration or environment issues discovered

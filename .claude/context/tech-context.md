@@ -185,3 +185,30 @@ author: Claude Code PM System
 - **`mvn -Pjetty spring-boot:run`** - Start with Jetty
 - **`mvn clean install`** - Full build with tests
 - **`docker-compose up`** - Full stack with PostgreSQL
+
+### Project Execution Commands
+
+#### Standard Development
+- **`mvn spring-boot:run`** - Start development server
+- **`mvn -Pjetty spring-boot:run`** - Start with Jetty
+- **`mvn clean install`** - Full build with tests
+- **`docker-compose up`** - Full stack with PostgreSQL
+
+#### Production Build and Run
+**CRITICAL**: Use ONLY the following command sequence for production builds and server execution:
+```bash
+mvn clean package spring-boot:repackage -DskipTests=true -Pboot && java -jar target/ROOT.war
+```
+
+**Command Breakdown:**
+- `mvn clean package` - Clean and build the project
+- `spring-boot:repackage` - Create executable WAR with embedded dependencies
+- `-DskipTests=true` - Skip test execution for faster builds (tests run separately)
+- `-Pboot` - Use Spring Boot profile for standalone execution
+- `java -jar target/ROOT.war` - Run the packaged application
+
+**Important Notes:**
+- This is the ONLY supported method for running the Fire Arrow server
+- Alternative commands may cause configuration or dependency issues
+- Server requires minimum 20 seconds monitoring for startup validation
+- Any deviation from this command sequence may result in production inconsistencies
