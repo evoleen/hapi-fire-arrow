@@ -1,6 +1,8 @@
 package com.evoleen.hapi.faserver.security;
 
 import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AzureIdentityProviderConfig;
+import com.evoleen.hapi.faserver.auth.OAuthProviderConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -113,10 +115,10 @@ public class OAuth2ResourceServerConfig {
         logger.info("Creating JWT decoder for provider: {} (type: {})", providerName, provider.getType());
 
         try {
-            if ("azure".equalsIgnoreCase(provider.getType())) {
-                return createAzureJwtDecoder(provider.getAzure());
-            } else if ("standard".equalsIgnoreCase(provider.getType())) {
-                return createStandardJwtDecoder(provider.getStandard());
+            if ("azure_identity".equalsIgnoreCase(provider.getType())) {
+                return createAzureJwtDecoder(provider.getAzureIdentity());
+            } else if ("oauth".equalsIgnoreCase(provider.getType())) {
+                return createStandardJwtDecoder(provider.getOauth());
             } else {
                 throw new IllegalArgumentException("Unsupported OAuth provider type: " + provider.getType());
             }
@@ -129,7 +131,7 @@ public class OAuth2ResourceServerConfig {
     /**
      * Creates a JWT decoder for Azure Active Directory.
      */
-    private JwtDecoder createAzureJwtDecoder(AuthConfigurationProperties.AzureConfig azureConfig) {
+    private JwtDecoder createAzureJwtDecoder(AzureIdentityProviderConfig azureConfig) {
         String issuerUri = azureConfig.getInstance() + azureConfig.getTenantId() + "/v2.0";
         logger.info("Creating Azure JWT decoder with issuer: {}", issuerUri);
         
@@ -139,7 +141,7 @@ public class OAuth2ResourceServerConfig {
     /**
      * Creates a JWT decoder for standard OAuth/OIDC providers.
      */
-    private JwtDecoder createStandardJwtDecoder(AuthConfigurationProperties.StandardOAuthConfig standardConfig) {
+    private JwtDecoder createStandardJwtDecoder(OAuthProviderConfig standardConfig) {
         logger.info("Creating standard OIDC JWT decoder with discovery URL: {}", standardConfig.getDiscoveryUrl());
         
         return NimbusJwtDecoder.withIssuerLocation(standardConfig.getDiscoveryUrl()).build();

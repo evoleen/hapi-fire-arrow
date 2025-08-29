@@ -191,14 +191,14 @@ public class JwtTokenValidator {
      * Gets the JWKS URI for a provider
      */
     private String getJwksUri(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
-        if ("azure".equalsIgnoreCase(provider.getType()) && provider.getAzure() != null) {
+        if ("azure_identity".equalsIgnoreCase(provider.getType()) && provider.getAzureIdentity() != null) {
             // Azure AD JWKS URI format
-            String instance = provider.getAzure().getInstance();
-            String tenantId = provider.getAzure().getTenantId();
+            String instance = provider.getAzureIdentity().getInstance();
+            String tenantId = provider.getAzureIdentity().getTenantId();
             return instance + tenantId + "/discovery/v2.0/keys";
-        } else if ("standard".equalsIgnoreCase(provider.getType()) && provider.getStandard() != null) {
+        } else if ("oauth".equalsIgnoreCase(provider.getType()) && provider.getOauth() != null) {
             // For standard OIDC, we need to discover the JWKS URI
-            return discoverJwksUri(provider.getStandard().getDiscoveryUrl());
+            return discoverJwksUri(provider.getOauth().getDiscoveryUrl());
         }
         
         return null;
@@ -276,10 +276,10 @@ public class JwtTokenValidator {
      * Gets expected audience for a provider
      */
     private String getExpectedAudience(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
-        if ("azure".equalsIgnoreCase(provider.getType()) && provider.getAzure() != null) {
-            return provider.getAzure().getApplicationId();
-        } else if ("standard".equalsIgnoreCase(provider.getType()) && provider.getStandard() != null) {
-            return provider.getStandard().getAudience();
+        if ("azure_identity".equalsIgnoreCase(provider.getType()) && provider.getAzureIdentity() != null) {
+            return provider.getAzureIdentity().getApplicationId();
+        } else if ("oauth".equalsIgnoreCase(provider.getType()) && provider.getOauth() != null) {
+            return provider.getOauth().getAudience();
         }
         return null;
     }
@@ -311,8 +311,8 @@ public class JwtTokenValidator {
      * Gets expected issuer for a provider
      */
     private String getExpectedIssuer(com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
-        if ("azure".equalsIgnoreCase(provider.getType()) && provider.getAzure() != null) {
-            return provider.getAzure().getInstance() + provider.getAzure().getTenantId() + "/v2.0";
+        if ("azure_identity".equalsIgnoreCase(provider.getType()) && provider.getAzureIdentity() != null) {
+            return provider.getAzureIdentity().getInstance() + provider.getAzureIdentity().getTenantId() + "/v2.0";
         }
         // For standard OAuth, issuer validation is typically handled by discovery document
         return null;

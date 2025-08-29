@@ -165,12 +165,12 @@ public class JwtConfiguration {
         private void validateProvider(String providerName, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
             String type = provider.getType();
             
-            if ("azure".equalsIgnoreCase(type)) {
+            if ("azure_identity".equalsIgnoreCase(type)) {
                 validateAzureProvider(providerName, provider);
-            } else if ("standard".equalsIgnoreCase(type)) {
+            } else if ("oauth".equalsIgnoreCase(type)) {
                 validateStandardProvider(providerName, provider);
             } else {
-                logger.error("Provider '{}' has unsupported type '{}'. Supported types: azure, standard", 
+                logger.error("Provider '{}' has unsupported type '{}'. Supported types: azure_identity, oauth", 
                         providerName, type);
             }
             
@@ -180,9 +180,9 @@ public class JwtConfiguration {
         }
         
         private void validateAzureProvider(String providerName, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
-            var azure = provider.getAzure();
+            var azure = provider.getAzureIdentity();
             if (azure == null) {
-                logger.error("Provider '{}' is type 'azure' but azure configuration is missing", providerName);
+                logger.error("Provider '{}' is type 'azure_identity' but azure configuration is missing", providerName);
                 return;
             }
             
@@ -198,9 +198,9 @@ public class JwtConfiguration {
         }
         
         private void validateStandardProvider(String providerName, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration provider) {
-            var standard = provider.getStandard();
+            var standard = provider.getOauth();
             if (standard == null) {
-                logger.error("Provider '{}' is type 'standard' but standard configuration is missing", providerName);
+                logger.error("Provider '{}' is type 'oauth' but oauth configuration is missing", providerName);
                 return;
             }
             

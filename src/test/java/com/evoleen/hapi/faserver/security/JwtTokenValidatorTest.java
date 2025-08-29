@@ -1,6 +1,8 @@
-package ca.uhn.fhir.jpa.starter.security;
+package com.evoleen.hapi.faserver.security;
 
 import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.OAuthProviderConfig;
+import com.evoleen.hapi.faserver.auth.AzureIdentityProviderConfig;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.crypto.RSASSASigner;
@@ -199,8 +201,8 @@ class JwtTokenValidatorTest {
         provider.setType("standard");
         provider.setEnabled(true);
         
-        AuthConfigurationProperties.StandardOAuthConfig standardConfig = 
-                new AuthConfigurationProperties.StandardOAuthConfig();
+        OAuthProviderConfig standardConfig = 
+                new OAuthProviderConfig();
         standardConfig.setDiscoveryUrl("https://example.com/.well-known/openid_configuration");
         standardConfig.setAudience("test-audience");
         provider.setStandard(standardConfig);
@@ -396,8 +398,8 @@ class JwtTokenValidatorTest {
         azureProvider.setType("azure");
         azureProvider.setEnabled(true);
         
-        AuthConfigurationProperties.AzureConfig azureConfig = 
-                new AuthConfigurationProperties.AzureConfig();
+        AzureIdentityProviderConfig azureConfig = 
+                new AzureIdentityProviderConfig();
         azureConfig.setTenantId("test-tenant");
         azureConfig.setApplicationId("test-app");
         azureProvider.setAzure(azureConfig);
@@ -503,8 +505,8 @@ class JwtTokenValidatorTest {
         azureProvider.setType("azure");
         azureProvider.setEnabled(true);
         
-        AuthConfigurationProperties.AzureConfig azureConfig = 
-                new AuthConfigurationProperties.AzureConfig();
+        AzureIdentityProviderConfig azureConfig = 
+                new AzureIdentityProviderConfig();
         azureConfig.setTenantId("test-tenant");
         azureConfig.setApplicationId("test-app");
         azureProvider.setAzure(azureConfig);

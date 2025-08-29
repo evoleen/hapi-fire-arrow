@@ -61,7 +61,7 @@ public class AzureIdentityProvider implements AuthProvider {
             // the essential claims structure.
             
             // Extract user identity from claims
-            UserIdentity userIdentity = claimExtractor.extractUserIdentity(claims, config.getClaimMapping());
+            UserIdentity userIdentity = claimExtractor.extractUserIdentity(claims, name);
             return JwtValidationResult.success(userIdentity, name);
 
         } catch (ParseException e) {

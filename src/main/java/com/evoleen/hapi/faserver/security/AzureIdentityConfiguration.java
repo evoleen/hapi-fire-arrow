@@ -1,6 +1,7 @@
 package com.evoleen.hapi.faserver.security;
 
 import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AzureIdentityProviderConfig;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,11 +44,11 @@ public class AzureIdentityConfiguration {
     public JwtDecoder azureJwtDecoder() {
         // Get Azure configuration from the first Azure provider found
         com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration azureProvider = getAzureProvider();
-        if (azureProvider == null || azureProvider.getAzure() == null) {
+        if (azureProvider == null || azureProvider.getAzureIdentity() == null) {
             throw new IllegalStateException("Azure OAuth provider configuration not found or incomplete");
         }
 
-        AuthConfigurationProperties.AzureConfig azureConfig = azureProvider.getAzure();
+        com.evoleen.hapi.faserver.auth.AzureIdentityProviderConfig azureConfig = azureProvider.getAzureIdentity();
         
         // Construct Azure AD OIDC discovery URL
         String discoveryUrl = azureConfig.getInstance() + azureConfig.getTenantId() + "/v2.0/.well-known/openid-configuration";
@@ -99,7 +100,7 @@ public class AzureIdentityConfiguration {
      */
     private com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration getAzureProvider() {
         return authProperties.getProviders().values().stream()
-            .filter(provider -> "azure".equals(provider.getType()) && provider.isEnabled())
+            .filter(provider -> "azure_identity".equals(provider.getType()) && provider.isEnabled())
             .findFirst()
             .orElse(null);
     }

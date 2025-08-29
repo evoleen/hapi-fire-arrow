@@ -1,6 +1,7 @@
-package ca.uhn.fhir.jpa.starter.interceptors;
+package com.evoleen.hapi.faserver.interceptors;
 
 import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.auth.AuthProviderManager;
 import com.evoleen.hapi.faserver.security.*;
 import ca.uhn.fhir.rest.api.server.RequestDetails;
 import ca.uhn.fhir.rest.server.exceptions.AuthenticationException;
@@ -26,10 +27,7 @@ import static org.mockito.Mockito.*;
 class AuthenticationInterceptorTest {
 
     @Mock
-    private JwtTokenValidator jwtTokenValidator;
-    
-    @Mock
-    private TokenClaimExtractor tokenClaimExtractor;
+    private AuthProviderManager authProviderManager;
     
     @Mock
     private AuthConfigurationProperties authConfig;
@@ -44,7 +42,7 @@ class AuthenticationInterceptorTest {
     
     @BeforeEach
     void setUp() {
-        interceptor = new AuthenticationInterceptor(jwtTokenValidator, tokenClaimExtractor, authConfig);
+        interceptor = new AuthenticationInterceptor(authProviderManager);
         
         // Default config setup
         when(authConfig.isEnabled()).thenReturn(true);

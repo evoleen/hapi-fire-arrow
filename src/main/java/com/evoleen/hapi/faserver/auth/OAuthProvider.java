@@ -62,7 +62,7 @@ public class OAuthProvider implements AuthProvider {
             }
 
             // Extract user identity from claims
-            UserIdentity userIdentity = claimExtractor.extractUserIdentity(claims, config.getClaimMapping());
+            UserIdentity userIdentity = claimExtractor.extractUserIdentity(claims, name);
             return JwtValidationResult.success(userIdentity, name);
 
         } catch (ParseException e) {
