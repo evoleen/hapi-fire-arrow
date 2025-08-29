@@ -26,6 +26,12 @@ public class AuthConfigurationProperties {
     private boolean enabled = false;
 
     /**
+     * Whether OAuth authentication is required for all requests
+     * If false, requests without authentication may still be allowed
+     */
+    private boolean required = true;
+
+    /**
      * OAuth provider configurations mapped by provider name
      */
     @Valid
@@ -43,6 +49,14 @@ public class AuthConfigurationProperties {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean isRequired() {
+        return required;
+    }
+
+    public void setRequired(boolean required) {
+        this.required = required;
     }
 
     public Map<String, OAuthProvider> getProviders() {
