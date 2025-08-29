@@ -6,8 +6,6 @@ import ca.uhn.fhir.interceptor.api.Pointcut;
 import com.evoleen.hapi.faserver.auth.AuthProviderManager;
 import com.evoleen.hapi.faserver.security.JwtValidationResult;
 import com.evoleen.hapi.faserver.security.UserIdentity;
-import com.evoleen.hapi.faserver.security.JwtValidationException;
-import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import ca.uhn.fhir.rest.api.server.RequestDetails;
 import ca.uhn.fhir.rest.server.exceptions.AuthenticationException;
 import ca.uhn.fhir.rest.server.servlet.ServletRequestDetails;
@@ -90,9 +88,6 @@ public class AuthenticationInterceptor {
             
             return true;
             
-        } catch (JwtValidationException e) {
-            logger.warn("JWT validation exception: {}", e.getMessage());
-            throw new AuthenticationException("Authentication failed: " + e.getMessage());
         } catch (AuthenticationException e) {
             // Re-throw authentication exceptions
             throw e;

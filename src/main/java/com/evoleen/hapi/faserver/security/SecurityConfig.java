@@ -68,8 +68,8 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(AbstractHttpConfigurer::disable)
             .headers(headers -> headers
-                .frameOptions().deny()
-                .contentTypeOptions().and()
+                .frameOptions(frameOptions -> frameOptions.deny())
+                .contentTypeOptions(contentTypeOptions -> {})
                 .httpStrictTransportSecurity(hsts -> hsts
                     .maxAgeInSeconds(31536000)
                     .includeSubDomains(true)
