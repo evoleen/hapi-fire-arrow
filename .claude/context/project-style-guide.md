@@ -7,6 +7,17 @@ author: Claude Code PM System
 
 # Project Style Guide
 
+## File Operation Requirements
+
+### MCP Text Editor Requirement
+**MANDATORY**: ALL file read/write activities MUST be performed via the mcp-text-editor MCP server.
+
+#### File Operation Rules
+- Use mcp-text-editor for ALL file reads, writes, and edits
+- No exceptions to this rule - all file I/O goes through mcp-text-editor
+- This ensures proper file handling, permissions, and consistency
+- The mcp-text-editor provides optimized file operations for this environment
+
 ## Code Style Standards
 
 ### Java Coding Standards
