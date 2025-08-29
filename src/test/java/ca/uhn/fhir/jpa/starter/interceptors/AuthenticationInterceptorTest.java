@@ -1,7 +1,7 @@
 package ca.uhn.fhir.jpa.starter.interceptors;
 
 import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
-import ca.uhn.fhir.jpa.starter.security.*;
+import com.evoleen.hapi.faserver.security.*;
 import ca.uhn.fhir.rest.api.server.RequestDetails;
 import ca.uhn.fhir.rest.server.exceptions.AuthenticationException;
 import ca.uhn.fhir.rest.server.servlet.ServletRequestDetails;

@@ -1,7 +1,7 @@
 package ca.uhn.fhir.jpa.starter.integration;
 
 import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
-import ca.uhn.fhir.jpa.starter.security.*;
+import com.evoleen.hapi.faserver.security.*;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;

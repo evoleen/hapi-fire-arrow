@@ -1,6 +1,6 @@
 package com.evoleen.hapi.faserver.auth;
 
-import ca.uhn.fhir.jpa.starter.security.*;
+import com.evoleen.hapi.faserver.security.*;
 import com.azure.core.credential.AccessToken;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.nimbusds.jwt.JWTClaimsSet;

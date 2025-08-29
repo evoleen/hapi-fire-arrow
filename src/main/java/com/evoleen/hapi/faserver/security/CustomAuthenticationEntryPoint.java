@@ -1,4 +1,4 @@
-package ca.uhn.fhir.jpa.starter.security;
+package com.evoleen.hapi.faserver.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

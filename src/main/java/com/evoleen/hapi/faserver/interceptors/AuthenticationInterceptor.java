@@ -1,11 +1,12 @@
-package ca.uhn.fhir.jpa.starter.interceptors;
+package com.evoleen.hapi.faserver.interceptors;
 
 import ca.uhn.fhir.interceptor.api.Hook;
 import ca.uhn.fhir.interceptor.api.Interceptor;
 import ca.uhn.fhir.interceptor.api.Pointcut;
 import com.evoleen.hapi.faserver.auth.AuthProviderManager;
-import ca.uhn.fhir.jpa.starter.security.JwtValidationResult;
-import ca.uhn.fhir.jpa.starter.security.UserIdentity;
+import com.evoleen.hapi.faserver.security.JwtValidationResult;
+import com.evoleen.hapi.faserver.security.UserIdentity;
+import com.evoleen.hapi.faserver.security.JwtValidationException;
 import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import ca.uhn.fhir.rest.api.server.RequestDetails;
 import ca.uhn.fhir.rest.server.exceptions.AuthenticationException;

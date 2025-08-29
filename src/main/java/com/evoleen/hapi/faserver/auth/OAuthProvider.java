@@ -1,6 +1,6 @@
 package com.evoleen.hapi.faserver.auth;
 
-import ca.uhn.fhir.jpa.starter.security.*;
+import com.evoleen.hapi.faserver.security.*;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.RSASSAVerifier;

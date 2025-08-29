@@ -1,6 +1,6 @@
 package com.evoleen.hapi.faserver.auth;
 
-import ca.uhn.fhir.jpa.starter.security.TokenClaimExtractor;
+import com.evoleen.hapi.faserver.security.TokenClaimExtractor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

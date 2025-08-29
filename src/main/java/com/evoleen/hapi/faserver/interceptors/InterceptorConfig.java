@@ -1,8 +1,7 @@
-package ca.uhn.fhir.jpa.starter.interceptors;
+package com.evoleen.hapi.faserver.interceptors;
 
 import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
-import ca.uhn.fhir.jpa.starter.security.JwtTokenValidator;
-import ca.uhn.fhir.jpa.starter.security.TokenClaimExtractor;
+import com.evoleen.hapi.faserver.auth.AuthProviderManager;
 import ca.uhn.fhir.rest.server.RestfulServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,19 +24,16 @@ public class InterceptorConfig {
     private static final Logger logger = LoggerFactory.getLogger(InterceptorConfig.class);
     
     private final AuthConfigurationProperties authConfig;
-    private final JwtTokenValidator jwtTokenValidator;
-    private final TokenClaimExtractor tokenClaimExtractor;
+    private final AuthProviderManager authProviderManager;
     
     @Autowired(required = false)
     private RestfulServer fhirServer;
     
     public InterceptorConfig(
             AuthConfigurationProperties authConfig,
-            JwtTokenValidator jwtTokenValidator,
-            TokenClaimExtractor tokenClaimExtractor) {
+            AuthProviderManager authProviderManager) {
         this.authConfig = authConfig;
-        this.jwtTokenValidator = jwtTokenValidator;
-        this.tokenClaimExtractor = tokenClaimExtractor;
+        this.authProviderManager = authProviderManager;
     }
     
     /**
@@ -59,7 +55,7 @@ public class InterceptorConfig {
         try {
             // Create and register authentication interceptor
             AuthenticationInterceptor authenticationInterceptor = new AuthenticationInterceptor(
-                    jwtTokenValidator, tokenClaimExtractor, authConfig);
+                    authProviderManager);
             
             fhirServer.registerInterceptor(authenticationInterceptor);
             logger.info("Registered JWT Authentication Interceptor");

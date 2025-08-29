@@ -1,9 +1,9 @@
-package ca.uhn.fhir.jpa.starter.interceptors;
+package com.evoleen.hapi.faserver.interceptors;
 
 import ca.uhn.fhir.interceptor.api.Hook;
 import ca.uhn.fhir.interceptor.api.Interceptor;
 import ca.uhn.fhir.interceptor.api.Pointcut;
-import ca.uhn.fhir.jpa.starter.security.UserIdentity;
+import com.evoleen.hapi.faserver.security.UserIdentity;
 import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import ca.uhn.fhir.rest.api.RestOperationTypeEnum;
 import ca.uhn.fhir.rest.api.server.RequestDetails;

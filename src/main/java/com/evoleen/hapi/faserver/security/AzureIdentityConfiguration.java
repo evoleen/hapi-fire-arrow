@@ -1,4 +1,4 @@
-package ca.uhn.fhir.jpa.starter.security;
+package com.evoleen.hapi.faserver.security;
 
 import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

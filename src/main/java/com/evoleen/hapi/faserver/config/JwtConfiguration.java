@@ -1,9 +1,10 @@
-package ca.uhn.fhir.jpa.starter.config;
+package com.evoleen.hapi.faserver.config;
 
-import ca.uhn.fhir.jpa.starter.security.JwtAccessDeniedHandler;
-import ca.uhn.fhir.jpa.starter.security.JwtAuthenticationEntryPoint;
-import ca.uhn.fhir.jpa.starter.security.JwtTokenValidator;
-import ca.uhn.fhir.jpa.starter.security.TokenClaimExtractor;
+import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
+import com.evoleen.hapi.faserver.security.JwtAccessDeniedHandler;
+import com.evoleen.hapi.faserver.security.JwtAuthenticationEntryPoint;
+import com.evoleen.hapi.faserver.security.JwtTokenValidator;
+import com.evoleen.hapi.faserver.security.TokenClaimExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

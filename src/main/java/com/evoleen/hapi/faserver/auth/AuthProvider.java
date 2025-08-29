@@ -1,6 +1,6 @@
 package com.evoleen.hapi.faserver.auth;
 
-import ca.uhn.fhir.jpa.starter.security.JwtValidationResult;
+import com.evoleen.hapi.faserver.security.JwtValidationResult;
 
 /**
  * Base interface for authentication providers.
