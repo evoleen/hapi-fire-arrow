@@ -164,7 +164,6 @@ public class AuthorizationInterceptor {
                 return hasWriteAccess(userRoles, resourceType, userIdentity);
                 
             case DELETE:
-            case DELETE_TYPE:
                 // Delete operations - require delete access
                 return hasDeleteAccess(userRoles, resourceType, userIdentity);
                 
