@@ -379,4 +379,77 @@ hapi:
 #  rest_url: 'localhost:9200'
 #  protocol: 'http'
 #  schema_management_strategy: CREATE
+    # OAuth 2.0 Authentication Configuration
+    # Supports multiple OAuth providers including Azure Identity and standard OAuth/OIDC
+    auth:
+      # Enable OAuth authentication globally
+      enabled: ${OAUTH_ENABLED:false}
+      
+      # Default claim field mappings for user identity extraction
+      # These can be overridden per provider
+      default_claim_mapping:
+        # JWT claim field containing the FHIR user role resource type (e.g., "Practitioner", "Patient")
+        user_role_resource_type: ${OAUTH_DEFAULT_USER_ROLE_RESOURCE_TYPE_CLAIM:resource_type}
+        # JWT claim field containing the FHIR ID (optional)
+        fhir_id: ${OAUTH_DEFAULT_FHIR_ID_CLAIM:fhir_id}
+        # JWT claim field containing the user identifier
+        user_id: ${OAUTH_DEFAULT_USER_ID_CLAIM:sub}
+        # JWT claim field containing user roles/permissions
+        roles: ${OAUTH_DEFAULT_ROLES_CLAIM:roles}
+        # JWT claim field containing user email
+        email: ${OAUTH_DEFAULT_EMAIL_CLAIM:email}
+        # JWT claim field containing user name
+        name: ${OAUTH_DEFAULT_NAME_CLAIM:name}
+      
+      # OAuth provider configurations
+      providers:
+        # Example Azure Identity configuration
+        azure_example:
+          type: azure
+          enabled: ${OAUTH_AZURE_ENABLED:false}
+          azure:
+            # Azure Active Directory tenant ID
+            tenant_id: ${AZURE_TENANT_ID:your-tenant-id}
+            # Azure application (client) ID
+            application_id: ${AZURE_APPLICATION_ID:your-application-id}
+            # Azure instance (optional, defaults to https://login.microsoftonline.com/)
+            instance: ${AZURE_INSTANCE:https://login.microsoftonline.com/}
+          # Provider-specific claim mappings (optional, overrides defaults)
+          claim_mapping:
+            user_role_resource_type: ${AZURE_USER_ROLE_RESOURCE_TYPE_CLAIM:resource_type}
+            fhir_id: ${AZURE_FHIR_ID_CLAIM:fhir_id}
+            user_id: ${AZURE_USER_ID_CLAIM:sub}
+            roles: ${AZURE_ROLES_CLAIM:roles}
+            email: ${AZURE_EMAIL_CLAIM:email}
+            name: ${AZURE_NAME_CLAIM:name}
+        
+        # Example standard OAuth/OIDC configuration
+        oidc_example:
+          type: standard
+          enabled: ${OAUTH_OIDC_ENABLED:false}
+          standard:
+            # OIDC discovery URL for automatic configuration
+            discovery_url: ${OIDC_DISCOVERY_URL:https://your-provider/.well-known/openid-configuration}
+            # Expected audience for JWT tokens
+            audience: ${OIDC_AUDIENCE:your-audience}
+            # Client ID (optional, for client credentials flow)
+            client_id: ${OIDC_CLIENT_ID:}
+            # Client secret (optional, for client credentials flow)
+            client_secret: ${OIDC_CLIENT_SECRET:}
+          # Provider-specific claim mappings (optional, overrides defaults)
+          claim_mapping:
+            user_role_resource_type: ${OIDC_USER_ROLE_RESOURCE_TYPE_CLAIM:resource_type}
+            fhir_id: ${OIDC_FHIR_ID_CLAIM:fhir_id}
+            user_id: ${OIDC_USER_ID_CLAIM:sub}
+            roles: ${OIDC_ROLES_CLAIM:roles}
+            email: ${OIDC_EMAIL_CLAIM:email}
+            name: ${OIDC_NAME_CLAIM:name}
+        
+        # You can add multiple providers as needed
+        # custom_provider:
+        #   type: standard
+        #   enabled: true
+        #   standard:
+        #     discovery_url: https://custom-provider/.well-known/openid-configuration
+        #     audience: custom-audience
 #  username: SomeUsername
