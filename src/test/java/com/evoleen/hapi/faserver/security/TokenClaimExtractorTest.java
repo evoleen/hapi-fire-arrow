@@ -2,7 +2,8 @@ package com.evoleen.hapi.faserver.security;
 
 import com.evoleen.hapi.faserver.auth.AuthConfigurationProperties;
 import com.evoleen.hapi.faserver.auth.OAuthProviderConfig;
-import com.evoleen.hapi.faserver.auth.AzureIdentityProviderConfig;import com.nimbusds.jwt.JWTClaimsSet;
+import com.evoleen.hapi.faserver.auth.AzureIdentityProviderConfig;
+import com.nimbusds.jwt.JWTClaimsSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

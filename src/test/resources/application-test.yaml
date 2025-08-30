@@ -1,0 +1,67 @@
+# Test profile configuration for Fire Arrow Server authentication tests
+spring:
+  profiles:
+    active: test
+  
+  # Test database configuration  
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: false
+
+# Test authentication configuration  
+test:
+  auth:
+    jwt:
+      valid-subject: "test-user"
+      valid-issuer: "https://example.com"
+      valid-audience: "test-audience"
+      test-secret-key: "dGVzdC1zZWNyZXQta2V5LWZvci1qd3QtdmFsaWRhdGlvbi10ZXN0aW5nLW9ubHk"
+      validity-duration-ms: 3600000
+    
+    providers:
+      test-provider:
+        type: "oauth"
+        discovery-url: "https://example.com/.well-known/openid_configuration"
+        audience: "test-audience"
+      
+      azure-provider:
+        type: "azure_identity"
+        tenant-id: "test-tenant"
+        application-id: "test-app"
+    
+    default-claims:
+      user-id-claim: "sub"
+      email-claim: "email"
+      roles-claim: "roles"
+      fhir-id-claim: "fhir_id"  
+      resource-type-claim: "resource_type"
+    
+    performance:
+      cached-validation-max-ms: 100
+      uncached-validation-max-ms: 500
+      concurrent-thread-count: 10
+
+# Disable authentication for integration tests
+auth:
+  enabled: false
+  required: false
+
+# Logging configuration for tests
+logging:
+  level:
+    com.evoleen.hapi.faserver: DEBUG
+    org.springframework.security: WARN
+    org.springframework.web: INFO
+    ca.uhn.fhir: WARN
+    org.hibernate: WARN

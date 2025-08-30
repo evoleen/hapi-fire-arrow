@@ -38,6 +38,12 @@ class AuthenticationInterceptorTest {
     @Mock
     private HttpServletRequest httpRequest;
     
+    @Mock
+    private JwtTokenValidator jwtTokenValidator;
+    
+    @Mock
+    private TokenClaimExtractor tokenClaimExtractor;
+    
     private AuthenticationInterceptor interceptor;
     
     @BeforeEach

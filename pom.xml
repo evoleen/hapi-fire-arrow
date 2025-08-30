@@ -120,6 +120,16 @@
             <groupId>org.opencds.cqf.fhir</groupId>
             <artifactId>cqf-fhir-cr-hapi</artifactId>
             <version>${clinical-reasoning.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.security</groupId>
+                    <artifactId>spring-security-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.security</groupId>
+                    <artifactId>spring-security-crypto</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- This dependency includes the JPA MDM Server -->
         <dependency>

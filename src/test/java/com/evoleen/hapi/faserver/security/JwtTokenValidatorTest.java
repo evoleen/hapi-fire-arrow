@@ -205,7 +205,7 @@ class JwtTokenValidatorTest {
                 new OAuthProviderConfig();
         standardConfig.setDiscoveryUrl("https://example.com/.well-known/openid_configuration");
         standardConfig.setAudience("test-audience");
-        provider.setStandard(standardConfig);
+        provider.setOauth(standardConfig);
         
         Map<String, com.evoleen.hapi.faserver.auth.AuthConfigurationProperties.AuthProviderConfiguration> providers = new HashMap<>();
         providers.put("test-provider", provider);
@@ -402,7 +402,7 @@ class JwtTokenValidatorTest {
                 new AzureIdentityProviderConfig();
         azureConfig.setTenantId("test-tenant");
         azureConfig.setApplicationId("test-app");
-        azureProvider.setAzure(azureConfig);
+        azureProvider.setAzureIdentity(azureConfig);
         
         authConfig.getProviders().put(providerName, azureProvider);
         
@@ -509,7 +509,7 @@ class JwtTokenValidatorTest {
                 new AzureIdentityProviderConfig();
         azureConfig.setTenantId("test-tenant");
         azureConfig.setApplicationId("test-app");
-        azureProvider.setAzure(azureConfig);
+        azureProvider.setAzureIdentity(azureConfig);
         
         authConfig.getProviders().put("azure-provider", azureProvider);
         

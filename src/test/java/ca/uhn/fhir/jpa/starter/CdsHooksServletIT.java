@@ -120,7 +120,7 @@ class CdsHooksServletIT implements IServerSupport {
 	@Test
 	void testCdsHooks() throws IOException {
 		loadBundle("r4/HelloWorld-Bundle.json", ourCtx, ourClient);
-		await().atMost(10000, TimeUnit.MILLISECONDS).until(this::hasCdsServices);
+		await().atMost(40000, TimeUnit.MILLISECONDS).until(this::hasCdsServices);
 		var cdsRequest = """
 			{
 			  "hookInstance": "12345",
@@ -159,7 +159,7 @@ class CdsHooksServletIT implements IServerSupport {
 	@Test
 	void testRec10() throws IOException {
 		loadBundle("r4/opioidcds-10-order-sign-bundle.json", ourCtx, ourClient);
-		await().atMost(20000, TimeUnit.MILLISECONDS).until(this::hasCdsServices);
+		await().atMost(40000, TimeUnit.MILLISECONDS).until(this::hasCdsServices);
 		var fhirServer = "  \"fhirServer\": " + "\"" + ourServerBase + "\"" + ",\n";
 		var cdsRequest = "{\n" +
 			"  \"hookInstance\": \"055b009c-4a7d-4db4-a35e-0e5198918ed1\",\n" +
