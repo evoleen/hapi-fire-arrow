@@ -1,7 +1,7 @@
 ---
 created: 2025-08-28T15:58:42Z
-last_updated: 2025-08-28T16:54:05Z
-version: 1.1
+last_updated: 2025-08-30T07:36:48Z
+version: 1.2
 author: Claude Code PM System
 ---
 
@@ -12,7 +12,7 @@ author: Claude Code PM System
 ### Platform & Runtime
 - **Java Version**: 17 (LTS) - Required for Fire Arrow Server
 - **Build Tool**: Maven 3.8.3+
-- **Application Framework**: Spring Boot 3.x
+- **Application Framework**: Spring Boot 3.2.6 (downgraded from 3.5.5 for dependency compatibility)
 - **Web Container**: Embedded Tomcat (default) / Jetty (optional)
 - **Packaging**: WAR file (`ROOT.war`)
 - **Server Identity**: Fire Arrow Server (branded HAPI FHIR implementation)
@@ -33,6 +33,9 @@ author: Claude Code PM System
 #### Clinical Reasoning
 - **Clinical Reasoning Version**: 3.26.0
 - **Module**: `cqf-fhir-cr-hapi` - Clinical Quality Language (CQL) support
+- **Critical Exclusions**: Spring Security dependencies excluded to prevent version conflicts
+  - Excluded: `spring-security-core`, `spring-security-crypto`
+  - Reason: CQL library brought incompatible Spring Security 5.7.14 vs required 6.2.4
 
 #### Database Support
 - **Development**: H2 Database (embedded, in-memory for testing)
@@ -106,7 +109,9 @@ author: Claude Code PM System
 
 #### OAuth 2.0 Integration
 - **Authentication Framework**: OAuth 2.0 token-based authentication
-- **Token Processing**: JWT token parsing and validation
+- **Spring Security**: Version 6.2.4 (required for Spring Boot 3.2.6 compatibility)
+- **OAuth2 Resource Server**: `spring-security-oauth2-jose` for JWT token validation
+- **Token Processing**: JWT token parsing and validation with Nimbus JOSE library
 - **Identity Mapping**: Email-based user to FHIR resource identity resolution
 - **Resource Types**: Support for Patient, Practitioner, Device, RelatedPerson identities
 - **Caching**: Multi-layer caching for identity resolution and validation results
@@ -210,5 +215,8 @@ mvn clean package spring-boot:repackage -DskipTests=true -Pboot && java -jar tar
 **Important Notes:**
 - This is the ONLY supported method for running the Fire Arrow server
 - Alternative commands may cause configuration or dependency issues
-- Server requires minimum 20 seconds monitoring for startup validation
+- Server requires minimum 40 seconds monitoring for startup validation (updated from 20s)
 - Any deviation from this command sequence may result in production inconsistencies
+
+## Update History
+- 2025-08-30T07:36:48Z: Fixed Spring Security version conflicts, updated Spring Boot to 3.2.6, added CQL dependency exclusions, updated server timeout requirements

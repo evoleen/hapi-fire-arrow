@@ -1,7 +1,7 @@
 ---
 created: 2025-08-28T15:58:42Z
-last_updated: 2025-08-29T21:50:12Z
-version: 1.2
+last_updated: 2025-08-30T07:36:48Z
+version: 1.3
 author: Claude Code PM System
 ---
 
@@ -113,7 +113,18 @@ src/
 │       └── js/                        # JavaScript files
 └── test/                              # Test code
     ├── java/                          # Java test classes (mirrors package structure)
+    │   ├── ca/uhn/fhir/jpa/starter/   # Base HAPI FHIR tests
+    │   └── com/evoleen/hapi/faserver/ # Fire Arrow custom tests
+    │       ├── config/                # Test configuration infrastructure
+    │       │   ├── BaseAuthenticationTest.java    # Abstract base for auth tests
+    │       │   ├── TestConfiguration.java         # Test Spring configuration
+    │       │   └── TestConfigurationProperties.java # Test config properties
+    │       ├── interceptors/          # Interceptor tests
+    │       ├── security/              # Security component tests
+    │       └── util/                  # Test utilities
+    │           └── JwtTestUtils.java              # JWT token generation utilities
     ├── resources/                     # Test resources
+    │   ├── application-test.yaml      # Test-specific Spring Boot configuration
     │   ├── dstu3/                     # FHIR DSTU3 test data
     │   └── r4/                        # FHIR R4 test data
     └── smoketest/                     # Smoke test configuration
@@ -219,7 +230,7 @@ src/
 All changes must pass complete smoke tests:
 1. Full test suite execution
 2. Maven build validation  
-3. Server startup monitoring (minimum 20 seconds)
+3. Server startup monitoring (minimum 40 seconds)
 4. Production command: `mvn clean package spring-boot:repackage -DskipTests=true -Pboot && java -jar target/ROOT.war`
 
 ### Code Organization Rules
@@ -227,3 +238,6 @@ All changes must pass complete smoke tests:
 - **BASE CODE**: Never modify `ca.uhn.fhir.jpa.starter.*` packages
 - **TESTING**: Mirror package structure in test directory
 - **SEPARATION**: Maintain strict separation for upstream compatibility
+
+## Update History
+- 2025-08-30T07:36:48Z: Added comprehensive test infrastructure files - BaseAuthenticationTest, TestConfigurationProperties, JwtTestUtils, application-test.yaml. Updated timeout requirements to 40 seconds.
